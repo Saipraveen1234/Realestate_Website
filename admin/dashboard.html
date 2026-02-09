@@ -69,6 +69,14 @@
                     class="px-6 py-4 font-semibold text-gray-500 hover:text-orange-500">
                     <i class="fas fa-comments mr-2"></i>Manage Testimonials
                 </button>
+                <button onclick="showTab('slider')" id="tab-slider"
+                    class="px-6 py-4 font-semibold text-gray-500 hover:text-orange-500">
+                    <i class="fas fa-images mr-2"></i>Manage Slider
+                </button>
+                <button onclick="showTab('stats')" id="tab-stats"
+                    class="px-6 py-4 font-semibold text-gray-500 hover:text-orange-500">
+                    <i class="fas fa-chart-bar mr-2"></i>Manage Stats
+                </button>
             </div>
         </div>
 
@@ -98,6 +106,82 @@
             <div id="testimonials-list" class="space-y-4">
                 <p class="text-gray-500">Loading testimonials...</p>
             </div>
+        </div>
+
+        <!-- Slider Tab -->
+        <div id="content-slider" class="bg-white rounded-lg shadow p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Hero Slider</h2>
+                <button onclick="showAddSlideModal()"
+                    class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    <i class="fas fa-plus mr-2"></i>Add Slide
+                </button>
+            </div>
+            <div id="slides-list" class="space-y-4">
+                <p class="text-gray-500">Loading slides...</p>
+            </div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="content-stats" class="bg-white rounded-lg shadow p-6 hidden">
+            <h2 class="text-2xl font-bold mb-6">Company Statistics</h2>
+            <form id="stats-form" class="max-w-lg">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Years of Experience</label>
+                    <input type="number" id="stats-experience" class="w-full px-4 py-2 border rounded" min="0">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Happy Clients</label>
+                    <input type="number" id="stats-clients" class="w-full px-4 py-2 border rounded" min="0">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Plots Sold</label>
+                    <input type="number" id="stats-plots" class="w-full px-4 py-2 border rounded" min="0">
+                </div>
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                    <i class="fas fa-save mr-2"></i>Save Statistics
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Slide Modal -->
+    <div id="slide-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-lg w-full">
+            <h3 id="slide-modal-title" class="text-2xl font-bold mb-4">Add Slide</h3>
+            <form id="slide-form" enctype="multipart/form-data">
+                <input type="hidden" id="slide-id">
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Title</label>
+                    <input type="text" id="slide-title" class="w-full px-4 py-2 border rounded"
+                        placeholder="Main Heading">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Subtitle</label>
+                    <input type="text" id="slide-subtitle" class="w-full px-4 py-2 border rounded"
+                        placeholder="Sub Heading">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Sort Order</label>
+                    <input type="number" id="slide-order" class="w-full px-4 py-2 border rounded" value="0">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Slide Image *</label>
+                    <input type="file" id="slide-image" accept="image/png, image/jpeg, image/jpg, image/webp"
+                        class="w-full px-4 py-2 border rounded">
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeSlideModal()"
+                        class="px-4 py-2 border rounded hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">Save
+                        Slide</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -155,7 +239,8 @@
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block text-gray-700 mb-2">Project Image</label>
-                        <input type="file" id="project-image" accept="image/*" class="w-full px-4 py-2 border rounded">
+                        <input type="file" id="project-image" accept="image/png, image/jpeg, image/jpg, image/webp"
+                            class="w-full px-4 py-2 border rounded">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-2">Brochure (PDF)</label>
@@ -204,7 +289,8 @@
 
                 <div class="mb-4">
                     <label class="block text-gray-700 mb-2">Client Photo</label>
-                    <input type="file" id="testimonial-photo" accept="image/*" class="w-full px-4 py-2 border rounded">
+                    <input type="file" id="testimonial-photo" accept="image/png, image/jpeg, image/jpg, image/webp"
+                        class="w-full px-4 py-2 border rounded">
                 </div>
 
                 <div class="flex justify-end space-x-4">

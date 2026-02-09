@@ -62,11 +62,30 @@ router.get('/:id', async (req, res) => {
 // @route   POST /api/projects
 // @desc    Create new project
 // @access  Private (Admin only)
-router.post('/', auth, upload.fields([
-    { name: 'image', maxCount: 1 },
-    { name: 'brochure', maxCount: 1 }
-]), async (req, res) => {
+router.post('/', auth, (req, res, next) => {
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+        { name: 'brochure', maxCount: 1 }
+    ])(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            console.error('Multer error:', err);
+            return res.status(400).json({ message: 'File upload error', error: err.message });
+        } else if (err) {
+            console.error('Unknown upload error:', err);
+            // Check for specific file type error
+            if (err.message === 'Only images (JPEG, PNG) and PDFs are allowed') {
+                return res.status(400).json({ message: err.message });
+            }
+            return res.status(500).json({ message: 'Unknown upload error', error: err.message });
+        }
+        // Continue to next middleware if no error
+        next();
+    });
+}, async (req, res) => {
     try {
+        console.log('Request body:', req.body);
+        console.log('Request files:', req.files);
+
         const { name, size, location, price, facing, status, description } = req.body;
 
         const projectData = {
@@ -94,7 +113,10 @@ router.post('/', auth, upload.fields([
 
         res.status(201).json(project);
     } catch (error) {
-        console.error('Create project error:', error);
+        console.error('Create project error details:', error);
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: 'Validation Error', error: error.message });
+        }
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });

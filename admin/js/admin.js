@@ -1,7 +1,5 @@
 // API Configuration
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:5000/api'
-    : '/api';
+const API_BASE_URL = '/api';
 
 // Check authentication
 function checkAuth() {
@@ -37,11 +35,17 @@ function showTab(tab) {
     // Update tab buttons
     document.getElementById('tab-projects').classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
     document.getElementById('tab-testimonials').classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+    if (document.getElementById('tab-slider')) document.getElementById('tab-slider').classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+    if (document.getElementById('tab-stats')) document.getElementById('tab-stats').classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+
     document.getElementById(`tab-${tab}`).classList.add('text-orange-500', 'border-b-2', 'border-orange-500');
 
     // Update content
     document.getElementById('content-projects').classList.add('hidden');
     document.getElementById('content-testimonials').classList.add('hidden');
+    if (document.getElementById('content-slider')) document.getElementById('content-slider').classList.add('hidden');
+    if (document.getElementById('content-stats')) document.getElementById('content-stats').classList.add('hidden');
+
     document.getElementById(`content-${tab}`).classList.remove('hidden');
 }
 
@@ -345,8 +349,199 @@ document.getElementById('testimonial-form').addEventListener('submit', async (e)
     }
 });
 
+// Load slides
+async function loadSlides() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/hero`);
+        // if endpoint doesn't exist yet, it returns html or error, so parse carefully
+        if (!response.ok) throw new Error('Failed to fetch slides');
+
+        const slides = await response.json();
+
+        const slidesList = document.getElementById('slides-list');
+        if (slides.length === 0) {
+            slidesList.innerHTML = '<p class="text-gray-500">No slides yet. Add one to customize your heroes!</p>';
+            return;
+        }
+
+        slidesList.innerHTML = slides.map(slide => `
+      <div class="border rounded-lg p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <img src="${slide.image}" alt="Slide" class="w-16 h-16 object-cover rounded">
+          <div>
+            <h3 class="font-bold">${slide.title || 'No Title'}</h3>
+            <p class="text-sm text-gray-600">${slide.subtitle || 'No Subtitle'}</p>
+            <p class="text-xs text-gray-500">Order: ${slide.order}</p>
+          </div>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="editSlide('${slide._id}')" class="text-blue-500 hover:text-blue-700">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button onclick="deleteSlide('${slide._id}')" class="text-red-500 hover:text-red-700">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+    } catch (error) {
+        console.error('Error loading slides:', error);
+        document.getElementById('slides-list').innerHTML = '<p class="text-red-500">Error loading slides (API might be missing)</p>';
+    }
+}
+
+// Slide Modal Functions
+function showAddSlideModal() {
+    document.getElementById('slide-modal-title').textContent = 'Add Slide';
+    document.getElementById('slide-form').reset();
+    document.getElementById('slide-id').value = '';
+    document.getElementById('slide-modal').classList.remove('hidden');
+    document.getElementById('slide-modal').classList.add('flex');
+}
+
+function closeSlideModal() {
+    document.getElementById('slide-modal').classList.add('hidden');
+    document.getElementById('slide-modal').classList.remove('flex');
+}
+
+async function editSlide(id) {
+    // Current backend doesn't support GET /hero/:id, so strict CRUD might be GET /hero and find
+    // But since I implemented standard CRUD, checking if GET /:id is available or just filtering from list
+    // Wait, my implemented backend DOES NOT have GET /hero/:id, only PUT /hero/:id
+    // So I should fetch all and find, OR implement GET /hero/:id.
+    // I recall I did NOT implement GET /hero/:id in backend. I implemented GET / (all). 
+    // Let's implement finding it from the list or implement the route.
+    // I'll assume we can just pass the data or fetch all. Fetching all is safer for now.
+
+    // Better: Fetch all and find
+    try {
+        const response = await fetch(`${API_BASE_URL}/hero`);
+        const slides = await response.json();
+        const slide = slides.find(s => s._id === id);
+
+        if (!slide) throw new Error('Slide not found');
+
+        document.getElementById('slide-modal-title').textContent = 'Edit Slide';
+        document.getElementById('slide-id').value = slide._id;
+        document.getElementById('slide-title').value = slide.title || '';
+        document.getElementById('slide-subtitle').value = slide.subtitle || '';
+        document.getElementById('slide-order').value = slide.order || 0;
+
+        document.getElementById('slide-modal').classList.remove('hidden');
+        document.getElementById('slide-modal').classList.add('flex');
+    } catch (error) {
+        console.error('Error loading slide:', error);
+        alert('Error loading slide details');
+    }
+}
+
+async function deleteSlide(id) {
+    if (!confirm('Are you sure you want to delete this slide?')) return;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/hero/${id}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders()
+        });
+
+        if (response.ok) {
+            loadSlides();
+            alert('Slide deleted successfully');
+        } else {
+            alert('Error deleting slide');
+        }
+    } catch (error) {
+        console.error('Error deleting slide:', error);
+        alert('Error deleting slide');
+    }
+}
+
+document.getElementById('slide-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    const id = document.getElementById('slide-id').value;
+
+    formData.append('title', document.getElementById('slide-title').value);
+    formData.append('subtitle', document.getElementById('slide-subtitle').value);
+    formData.append('order', document.getElementById('slide-order').value);
+
+    const imageFile = document.getElementById('slide-image').files[0];
+    if (imageFile) formData.append('image', imageFile);
+
+    try {
+        const url = id ? `${API_BASE_URL}/hero/${id}` : `${API_BASE_URL}/hero`;
+        const method = id ? 'PUT' : 'POST';
+
+        const response = await fetch(url, {
+            method,
+            headers: getAuthHeaders(),
+            body: formData
+        });
+
+        if (response.ok) {
+            closeSlideModal();
+            loadSlides();
+            alert(id ? 'Slide updated successfully' : 'Slide added successfully');
+        } else {
+            const error = await response.json();
+            alert('Error: ' + (error.message || 'Failed to save slide'));
+        }
+    } catch (error) {
+        console.error('Error saving slide:', error);
+        alert('Error saving slide');
+    }
+});
+
 // Initialize
 checkAuth();
 loadStats();
 loadProjects();
 loadTestimonials();
+loadSlides();
+loadCompanyStats();
+
+// Load company stats for form
+async function loadCompanyStats() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/stats`);
+        if (!response.ok) throw new Error('Failed to fetch stats');
+        const stats = await response.json();
+
+        document.getElementById('stats-experience').value = stats.yearsOfExperience || 0;
+        document.getElementById('stats-clients').value = stats.happyClients || 0;
+        document.getElementById('stats-plots').value = stats.plotsSold || 0;
+    } catch (error) {
+        console.error('Error loading company stats:', error);
+    }
+}
+
+document.getElementById('stats-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = {
+        yearsOfExperience: document.getElementById('stats-experience').value,
+        happyClients: document.getElementById('stats-clients').value,
+        plotsSold: document.getElementById('stats-plots').value
+    };
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/stats`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...getAuthHeaders()
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            alert('Statistics updated successfully');
+        } else {
+            alert('Error updating statistics');
+        }
+    } catch (error) {
+        console.error('Error updating stats:', error);
+        alert('Error updating statistics');
+    }
+});

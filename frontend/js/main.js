@@ -6,6 +6,8 @@ AOS.init({
 });
 
 // Initialize Hero Swiper
+// Note: This is now handled in api.js after fetching dynamic slides
+/* 
 const heroSwiper = new Swiper('.hero-swiper', {
     loop: true,
     autoplay: {
@@ -25,6 +27,7 @@ const heroSwiper = new Swiper('.hero-swiper', {
         crossFade: true
     },
 });
+*/
 
 // Navbar Scroll Effect
 const navbar = document.getElementById('navbar');

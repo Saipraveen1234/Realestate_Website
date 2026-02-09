@@ -9,6 +9,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const testimonialRoutes = require('./routes/testimonials');
+const heroRoutes = require('./routes/hero');
+const statsRoutes = require('./routes/stats');
 
 // Initialize Express app
 const app = express();
@@ -31,6 +33,8 @@ app.use('/admin', express.static(path.join(__dirname, '../admin')));
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/testimonials', testimonialRoutes);
+app.use('/api/hero', heroRoutes);
+app.use('/api/stats', statsRoutes);
 
 // Serve frontend
 app.get('/', (req, res) => {

@@ -1,7 +1,5 @@
 // API Configuration
-const API_BASE_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:5000/api' 
-  : '/api';
+const API_BASE_URL = '/api';
 
 // Fetch all projects
 async function fetchProjects() {
@@ -29,13 +27,38 @@ async function fetchTestimonials() {
   }
 }
 
+// Fetch hero slides
+async function fetchHeroSlides() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/hero`);
+    if (!response.ok) throw new Error('Failed to fetch hero slides');
+    const slides = await response.json();
+    return slides;
+  } catch (error) {
+    console.error('Error fetching hero slides:', error);
+    return [];
+  }
+}
+
+// Fetch company stats
+async function fetchCompanyStats() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/stats`);
+    if (!response.ok) throw new Error('Failed to fetch stats');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching stats:', error);
+    return { yearsOfExperience: 0, happyClients: 0, plotsSold: 0 };
+  }
+}
+
 // Render project card
 function renderProjectCard(project) {
-  const statusBadge = project.status === 'upcoming' 
-    ? '<span class="badge badge-launching">Launching Soon</span>' 
-    : project.status === 'completed' 
-    ? '<span class="badge badge-completed">Completed</span>' 
-    : '';
+  const statusBadge = project.status === 'upcoming'
+    ? '<span class="badge badge-launching">Launching Soon</span>'
+    : project.status === 'completed'
+      ? '<span class="badge badge-completed">Completed</span>'
+      : '';
 
   return `
     <div class="project-card" data-aos="fade-up">
@@ -67,7 +90,7 @@ function renderProjectCard(project) {
 // Render testimonial card
 function renderTestimonialCard(testimonial) {
   const stars = '★'.repeat(testimonial.rating || 5);
-  
+
   return `
     <div class="swiper-slide">
       <div class="testimonial-card">
@@ -83,11 +106,11 @@ function renderTestimonialCard(testimonial) {
 // Load and display projects
 async function loadProjects() {
   const projects = await fetchProjects();
-  
+
   const ongoingProjects = projects.filter(p => p.status === 'ongoing');
   const upcomingProjects = projects.filter(p => p.status === 'upcoming');
   const completedProjects = projects.filter(p => p.status === 'completed');
-  
+
   // Render ongoing projects
   const ongoingGrid = document.getElementById('ongoing-projects-grid');
   if (ongoingProjects.length > 0) {
@@ -95,7 +118,7 @@ async function loadProjects() {
   } else {
     ongoingGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No ongoing projects at the moment.</p></div>';
   }
-  
+
   // Render upcoming projects
   const upcomingGrid = document.getElementById('upcoming-projects-grid');
   if (upcomingProjects.length > 0) {
@@ -103,7 +126,7 @@ async function loadProjects() {
   } else {
     upcomingGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No upcoming projects at the moment.</p></div>';
   }
-  
+
   // Render completed projects
   const completedGrid = document.getElementById('completed-projects-grid');
   if (completedProjects.length > 0) {
@@ -111,15 +134,97 @@ async function loadProjects() {
   } else {
     completedGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No completed projects to display.</p></div>';
   }
-  
+
   // Refresh AOS animations
   AOS.refresh();
+}
+
+// Render hero slide
+function renderHeroSlide(slide) {
+  // Use a gradient overlay if no specific style provided
+  // We can customize background style if needed
+  return `
+    <div class="swiper-slide h-full flex items-center justify-center relative">
+        <div class="absolute inset-0 bg-black opacity-40 z-10"></div>
+        <img src="${slide.image}" class="absolute inset-0 w-full h-full object-cover z-0" alt="${slide.title}">
+        <div class="text-center px-4 relative z-20 text-white">
+            <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg" data-aos="fade-up">
+                ${slide.title}
+            </h1>
+            <p class="text-xl md:text-2xl font-light drop-shadow-md" data-aos="fade-up" data-aos-delay="200">
+                ${slide.subtitle}
+            </p>
+        </div>
+    </div>
+  `;
+}
+
+// Load and display hero slides
+async function loadHeroSlides() {
+  const slides = await fetchHeroSlides();
+
+  if (slides.length > 0) {
+    const wrapper = document.getElementById('hero-swiper-wrapper');
+    if (wrapper) {
+      wrapper.innerHTML = slides.map(renderHeroSlide).join('');
+
+      // Re-initialize Swiper after content update
+      if (window.heroSwiper) {
+        window.heroSwiper.destroy(true, true);
+      }
+      initHeroSwiper();
+    }
+  }
+  // If no slides, fallback content remains
+}
+
+// Initialize hero swiper
+function initHeroSwiper() {
+  window.heroSwiper = new Swiper('.hero-swiper', {
+    loop: true,
+    effect: 'fade',
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+// Load company stats
+async function loadCompanyStats() {
+  const stats = await fetchCompanyStats();
+
+  const expEl = document.getElementById('stat-experience');
+  const clientEl = document.getElementById('stat-clients');
+  const plotsEl = document.getElementById('stat-plots');
+
+  if (expEl) {
+    expEl.setAttribute('data-target', stats.yearsOfExperience || 0);
+    expEl.innerText = '0'; // Reset to 0 to let animation run if needed
+  }
+  if (clientEl) {
+    clientEl.setAttribute('data-target', stats.happyClients || 0);
+    clientEl.innerText = '0';
+  }
+  if (plotsEl) {
+    plotsEl.setAttribute('data-target', stats.plotsSold || 0);
+    plotsEl.innerText = '0';
+  }
 }
 
 // Load and display testimonials
 async function loadTestimonials() {
   const testimonials = await fetchTestimonials();
-  
+
   const container = document.getElementById('testimonials-container');
   if (testimonials.length > 0) {
     container.innerHTML = testimonials.map(renderTestimonialCard).join('');
@@ -132,7 +237,7 @@ async function loadTestimonials() {
       </div>
     `;
   }
-  
+
   // Reinitialize testimonials swiper
   initTestimonialsSwiper();
 }
@@ -168,6 +273,8 @@ function initTestimonialsSwiper() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  loadHeroSlides();
+  loadCompanyStats();
   loadProjects();
   loadTestimonials();
 });

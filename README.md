@@ -68,8 +68,8 @@ npm start
 
 ### 6. Access the application
 
-- **Frontend:** http://localhost:5000
-- **Admin Panel:** http://localhost:5000/admin
+- **Frontend:** http://localhost:8080
+- **Admin Panel:** http://localhost:8080/admin
 - **Default admin credentials:**
   - Email: admin@realestate.com
   - Password: admin123

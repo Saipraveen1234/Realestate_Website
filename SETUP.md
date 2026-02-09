@@ -46,7 +46,7 @@ node -e "require('dotenv').config(); const mongoose = require('mongoose'); const
 
 Or use the admin registration endpoint (first time only):
 ```bash
-curl -X POST http://localhost:5000/api/auth/register \
+curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"email":"admin@realestate.com","password":"admin123"}'
 ```
@@ -65,8 +65,8 @@ npm start
 
 ### 6. Access the Application
 
-- **Frontend Website:** http://localhost:5000
-- **Admin Panel:** http://localhost:5000/admin
+- **Frontend Website:** http://localhost:8080
+- **Admin Panel:** http://localhost:8080/admin
 - **Admin Login:**
   - Email: admin@realestate.com
   - Password: admin123
