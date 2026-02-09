@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-orange-500">Admin Dashboard</h1>
+            <div class="flex items-center space-x-4">
+                <span id="user-email" class="text-gray-600"></span>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total Projects</p>
+                        <h3 id="total-projects" class="text-3xl font-bold text-orange-500">0</h3>
+                    </div>
+                    <i class="fas fa-building text-4xl text-orange-200"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Testimonials</p>
+                        <h3 id="total-testimonials" class="text-3xl font-bold text-blue-500">0</h3>
+                    </div>
+                    <i class="fas fa-comments text-4xl text-blue-200"></i>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Ongoing Projects</p>
+                        <h3 id="ongoing-projects" class="text-3xl font-bold text-green-500">0</h3>
+                    </div>
+                    <i class="fas fa-tasks text-4xl text-green-200"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="flex border-b">
+                <button onclick="showTab('projects')" id="tab-projects"
+                    class="px-6 py-4 font-semibold text-orange-500 border-b-2 border-orange-500">
+                    <i class="fas fa-building mr-2"></i>Manage Projects
+                </button>
+                <button onclick="showTab('testimonials')" id="tab-testimonials"
+                    class="px-6 py-4 font-semibold text-gray-500 hover:text-orange-500">
+                    <i class="fas fa-comments mr-2"></i>Manage Testimonials
+                </button>
+            </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="content-projects" class="bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Projects</h2>
+                <button onclick="showAddProjectModal()"
+                    class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                    <i class="fas fa-plus mr-2"></i>Add Project
+                </button>
+            </div>
+            <div id="projects-list" class="space-y-4">
+                <p class="text-gray-500">Loading projects...</p>
+            </div>
+        </div>
+
+        <!-- Testimonials Tab -->
+        <div id="content-testimonials" class="bg-white rounded-lg shadow p-6 hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Testimonials</h2>
+                <button onclick="showAddTestimonialModal()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <i class="fas fa-plus mr-2"></i>Add Testimonial
+                </button>
+            </div>
+            <div id="testimonials-list" class="space-y-4">
+                <p class="text-gray-500">Loading testimonials...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Project Modal -->
+    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-screen overflow-y-auto">
+            <h3 id="project-modal-title" class="text-2xl font-bold mb-4">Add Project</h3>
+            <form id="project-form" enctype="multipart/form-data">
+                <input type="hidden" id="project-id">
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Project Name *</label>
+                        <input type="text" id="project-name" required class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Size *</label>
+                        <input type="text" id="project-size" required class="w-full px-4 py-2 border rounded"
+                            placeholder="e.g., 200 sq. yards">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Location *</label>
+                    <input type="text" id="project-location" required class="w-full px-4 py-2 border rounded">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Price *</label>
+                        <input type="text" id="project-price" required class="w-full px-4 py-2 border rounded"
+                            placeholder="e.g., 13999/- per sq.yard">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Facing *</label>
+                        <input type="text" id="project-facing" required class="w-full px-4 py-2 border rounded"
+                            placeholder="e.g., All Facing">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Status *</label>
+                    <select id="project-status" class="w-full px-4 py-2 border rounded">
+                        <option value="ongoing">Ongoing</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Description</label>
+                    <textarea id="project-description" rows="3" class="w-full px-4 py-2 border rounded"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Project Image</label>
+                        <input type="file" id="project-image" accept="image/*" class="w-full px-4 py-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Brochure (PDF)</label>
+                        <input type="file" id="project-brochure" accept=".pdf" class="w-full px-4 py-2 border rounded">
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeProjectModal()"
+                        class="px-4 py-2 border rounded hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Save
+                        Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Testimonial Modal -->
+    <div id="testimonial-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-lg w-full">
+            <h3 id="testimonial-modal-title" class="text-2xl font-bold mb-4">Add Testimonial</h3>
+            <form id="testimonial-form" enctype="multipart/form-data">
+                <input type="hidden" id="testimonial-id">
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Client Name *</label>
+                    <input type="text" id="testimonial-name" required class="w-full px-4 py-2 border rounded">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Rating *</label>
+                    <select id="testimonial-rating" class="w-full px-4 py-2 border rounded">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Testimonial *</label>
+                    <textarea id="testimonial-text" required rows="4"
+                        class="w-full px-4 py-2 border rounded"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Client Photo</label>
+                    <input type="file" id="testimonial-photo" accept="image/*" class="w-full px-4 py-2 border rounded">
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeTestimonialModal()"
+                        class="px-4 py-2 border rounded hover:bg-gray-100">Cancel</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save
+                        Testimonial</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

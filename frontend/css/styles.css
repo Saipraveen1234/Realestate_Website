@@ -1,0 +1,96 @@
+/* Additional Custom Styles */
+
+/* Navbar Scroll Effect */
+#navbar {
+  background-color: transparent;
+}
+
+#navbar.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Swiper Custom Styles */
+.hero-swiper .swiper-button-next,
+.hero-swiper .swiper-button-prev {
+  color: #FF914D;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+  background-color: #FF914D;
+}
+
+/* Project Card Styles */
+.project-card {
+  background: white;
+  border: 2px solid #FF914D;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+/* Testimonial Card Styles */
+.testimonial-card {
+  background: white;
+  border: 2px solid #FF914D;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  min-height: 300px;
+}
+
+.testimonial-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 15px;
+}
+
+.stars {
+  color: #F1C40F;
+}
+
+/* Back to Top Button Animation */
+#back-to-top.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Badge Styles */
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10;
+}
+
+.badge-launching {
+  background-color: #FF914D;
+  color: white;
+}
+
+.badge-completed {
+  background-color: #28a745;
+  color: white;
+}
