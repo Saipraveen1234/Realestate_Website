@@ -4,17 +4,9 @@ const multer = require('multer');
 const path = require('path');
 const HeroSlide = require('../models/HeroSlide');
 const auth = require('../middleware/auth');
+const { storage } = require('../config/cloudinary');
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
+// Configure multer with Cloudinary storage
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
@@ -64,7 +56,7 @@ router.post('/', auth, (req, res, next) => {
         const { title, subtitle, order } = req.body;
 
         const slide = new HeroSlide({
-            image: '/uploads/' + req.file.filename,
+            image: req.file.path, // Cloudinary URL
             title: title || '',
             subtitle: subtitle || '',
             order: order || 0
@@ -104,7 +96,7 @@ router.put('/:id', auth, (req, res, next) => {
         slide.order = order !== undefined ? order : slide.order;
 
         if (req.file) {
-            slide.image = '/uploads/' + req.file.filename;
+            slide.image = req.file.path; // Cloudinary URL
         }
 
         await slide.save();

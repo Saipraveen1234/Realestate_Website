@@ -62,9 +62,17 @@ app.use((req, res) => {
 });
 
 // Start server
+// Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`Frontend: http://localhost:${PORT}`);
-    console.log(`Admin Panel: http://localhost:${PORT}/admin`);
-});
+
+// Only start server if run directly (development or traditional hosting)
+// Vercel serverless functions will import the app instead
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Frontend: http://localhost:${PORT}`);
+        console.log(`Admin Panel: http://localhost:${PORT}/admin`);
+    });
+}
+
+module.exports = app;

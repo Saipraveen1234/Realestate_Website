@@ -4,17 +4,9 @@ const multer = require('multer');
 const path = require('path');
 const Project = require('../models/Project');
 const auth = require('../middleware/auth');
+const { storage } = require('../config/cloudinary');
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
+// Configure multer with Cloudinary storage
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
@@ -101,10 +93,10 @@ router.post('/', auth, (req, res, next) => {
         // Add file paths if uploaded
         if (req.files) {
             if (req.files.image) {
-                projectData.image = '/uploads/' + req.files.image[0].filename;
+                projectData.image = req.files.image[0].path; // Cloudinary URL
             }
             if (req.files.brochure) {
-                projectData.brochure = '/uploads/' + req.files.brochure[0].filename;
+                projectData.brochure = req.files.brochure[0].path; // Cloudinary URL
             }
         }
 
@@ -148,10 +140,10 @@ router.put('/:id', auth, upload.fields([
         // Update file paths if new files uploaded
         if (req.files) {
             if (req.files.image) {
-                project.image = '/uploads/' + req.files.image[0].filename;
+                project.image = req.files.image[0].path; // Cloudinary URL
             }
             if (req.files.brochure) {
-                project.brochure = '/uploads/' + req.files.brochure[0].filename;
+                project.brochure = req.files.brochure[0].path; // Cloudinary URL
             }
         }
 

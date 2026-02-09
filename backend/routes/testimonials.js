@@ -4,17 +4,9 @@ const multer = require('multer');
 const path = require('path');
 const Testimonial = require('../models/Testimonial');
 const auth = require('../middleware/auth');
+const { storage } = require('../config/cloudinary');
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
+// Configure multer with Cloudinary storage
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
@@ -74,7 +66,7 @@ router.post('/', auth, upload.single('photo'), async (req, res) => {
 
         // Add photo path if uploaded
         if (req.file) {
-            testimonialData.photo = '/uploads/' + req.file.filename;
+            testimonialData.photo = req.file.path; // Cloudinary URL
         }
 
         const newTestimonial = new Testimonial(testimonialData);
@@ -106,7 +98,7 @@ router.put('/:id', auth, upload.single('photo'), async (req, res) => {
 
         // Update photo if new file uploaded
         if (req.file) {
-            testimonialDoc.photo = '/uploads/' + req.file.filename;
+            testimonialDoc.photo = req.file.path; // Cloudinary URL
         }
 
         await testimonialDoc.save();
