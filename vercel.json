@@ -4,12 +4,32 @@
         {
             "src": "backend/server.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "frontend/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "admin/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/api/(.*)",
             "dest": "/backend/server.js"
+        },
+        {
+            "src": "/admin/dashboard",
+            "dest": "/admin/dashboard.html"
+        },
+        {
+            "src": "/admin",
+            "dest": "/admin/login.html"
+        },
+        {
+            "src": "/admin/(.*)",
+            "dest": "/admin/$1"
         },
         {
             "src": "/(.*)",

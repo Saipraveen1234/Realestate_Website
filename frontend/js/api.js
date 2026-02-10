@@ -78,7 +78,7 @@ function renderProjectCard(project) {
           ${project.brochure ? `<a href="${project.brochure}" target="_blank" class="flex-1 bg-primary-orange text-white py-2 px-4 rounded hover:bg-orange-600 transition text-center">
             <i class="fas fa-file-pdf mr-2"></i>Brochure
           </a>` : ''}
-          <a href="tel:+919646333344" class="flex-1 bg-dark-charcoal text-white py-2 px-4 rounded hover:bg-gray-700 transition text-center">
+          <a href="tel:+919999999999" class="flex-1 bg-dark-charcoal text-white py-2 px-4 rounded hover:bg-gray-700 transition text-center">
             <i class="fas fa-phone mr-2"></i>Contact
           </a>
         </div>
