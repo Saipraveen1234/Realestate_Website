@@ -55,42 +55,77 @@
 
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="px-3 md:container md:mx-auto md:px-4 py-2 md:py-4 flex justify-between items-center">
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
                     <img src="assets/images/logo.png" alt="Soudha Projects Logo"
-                        class="h-20 md:h-28 w-auto object-contain">
+                        class="h-12 md:h-28 w-auto object-contain bg-white/90 backdrop-blur-sm rounded-lg md:rounded-2xl p-1.5 md:p-3 shadow-md transition-transform hover:scale-105">
                 </a>
             </div>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="nav-link hover:text-primary-orange transition">About Us</a>
-                <a href="#ongoing-projects" class="nav-link hover:text-primary-orange transition">Ongoing Projects</a>
-                <a href="#upcoming-projects" class="nav-link hover:text-primary-orange transition">Upcoming Projects</a>
-                <a href="#completed-projects" class="nav-link hover:text-primary-orange transition">Completed
-                    Projects</a>
-                <a href="#testimonials" class="nav-link hover:text-primary-orange transition">Testimonials</a>
-                <a href="#contact" class="nav-link hover:text-primary-orange transition">Contact</a>
-            </div>
+            <!-- Desktop Navigation (Hidden, replaced by Hamburger) -->
+            <!-- <div class="hidden md:flex space-x-8"> ... </div> -->
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-2xl">
+            <!-- Hamburger Button (Visible Always, Highlighted) -->
+            <button id="menu-btn"
+                class="flex-shrink-0 text-lg md:text-2xl text-primary-blue bg-white/90 backdrop-blur-sm p-2.5 md:p-4 w-10 h-10 md:w-14 md:h-14 flex items-center justify-center rounded-full shadow-lg hover:bg-primary-orange hover:text-white hover:scale-110 transition-all duration-300 focus:outline-none z-50">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-            <div class="flex flex-col space-y-4 p-6">
-                <a href="#about" class="nav-link hover:text-primary-orange transition">About Us</a>
-                <a href="#ongoing-projects" class="nav-link hover:text-primary-orange transition">Ongoing Projects</a>
-                <a href="#upcoming-projects" class="nav-link hover:text-primary-orange transition">Upcoming Projects</a>
-                <a href="#completed-projects" class="nav-link hover:text-primary-orange transition">Completed
-                    Projects</a>
-                <a href="#testimonials" class="nav-link hover:text-primary-orange transition">Testimonials</a>
-                <a href="#contact" class="nav-link hover:text-primary-orange transition">Contact</a>
+        <!-- Overlay Backdrop -->
+        <div id="menu-overlay"
+            class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+        <!-- Slide-out Menu Drawer -->
+        <div id="side-menu"
+            class="fixed inset-0 bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+            <div class="flex-1 flex flex-col max-w-5xl mx-auto w-full p-6 relative overflow-y-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200/30">
+                    <span class="font-heading text-xl md:text-2xl font-bold text-gradient">Menu</span>
+                    <button id="close-menu-btn"
+                        class="text-3xl md:text-4xl text-gray-400 hover:text-primary-orange hover:rotate-90 transition-all duration-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Links (Vertically and Horizontally Centered, Smaller on Mobile) -->
+                <div class="flex-1 flex flex-col justify-center items-center space-y-6 md:space-y-8 pb-20">
+                    <a href="#about"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">About
+                        Us</a>
+                    <a href="#ongoing-projects"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">Ongoing
+                        Projects</a>
+                    <a href="#upcoming-projects"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">Upcoming
+                        Projects</a>
+                    <a href="#completed-projects"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">Completed
+                        Projects</a>
+                    <a href="#testimonials"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">Testimonials</a>
+                    <a href="#contact"
+                        class="nav-link text-2xl md:text-5xl font-heading font-bold text-gray-800 hover:text-primary-orange transition-all duration-300 hover:scale-105 text-center leading-tight">Contact</a>
+                </div>
+
+                <!-- Footer (At Bottom) -->
+                <div class="mt-auto pt-6 border-t border-gray-100 text-center">
+                    <p class="text-base md:text-lg text-gray-500 mb-4 font-medium tracking-wide">Follow Us</p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#"
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-lg md:text-xl text-primary-blue hover:bg-primary-orange hover:border-primary-orange hover:text-white transition transform hover:-translate-y-1 shadow-sm"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-lg md:text-xl text-primary-blue hover:bg-primary-orange hover:border-primary-orange hover:text-white transition transform hover:-translate-y-1 shadow-sm"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-lg md:text-xl text-primary-blue hover:bg-primary-orange hover:border-primary-orange hover:text-white transition transform hover:-translate-y-1 shadow-sm"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -149,9 +184,9 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Image -->
-                <div data-aos="fade-right">
-                    <img src="assets/images/about-placeholder.jpg" alt="About Us"
-                        class="rounded-full w-full max-w-md mx-auto shadow-2xl">
+                <div data-aos="zoom-in" data-aos-duration="1000">
+                    <img src="assets/images/logo.png" alt="About Us"
+                        class="rounded-3xl w-full max-w-sm mx-auto shadow-2xl object-contain p-4 bg-white animate-float">
                 </div>
 
                 <!-- Content -->
@@ -209,7 +244,7 @@
     <section id="ongoing-projects" class="py-20 bg-off-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="font-heading text-4xl font-bold mb-4">Ongoing Projects</h2>
+                <h2 class="font-heading text-4xl font-bold mb-4 text-gradient inline-block">Ongoing Projects</h2>
                 <p class="text-xl text-gray-600">Explore our premium projects that are ready for investment</p>
             </div>
 

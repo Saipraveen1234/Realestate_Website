@@ -40,17 +40,37 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
+// Side Menu Logic
+const menuBtn = document.getElementById('menu-btn');
+const closeMenuBtn = document.getElementById('close-menu-btn');
+const sideMenu = document.getElementById('side-menu');
+const menuOverlay = document.getElementById('menu-overlay');
 
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
+function openMenu() {
+    sideMenu.classList.remove('translate-x-full');
+    menuOverlay.classList.remove('hidden');
+    // slight delay for opacity transition to work after removing hidden
+    setTimeout(() => {
+        menuOverlay.classList.remove('opacity-0');
+    }, 10);
+}
 
-// Close mobile menu when clicking a link
-document.querySelectorAll('#mobile-menu a').forEach(link => {
+function closeMenu() {
+    sideMenu.classList.add('translate-x-full');
+    menuOverlay.classList.add('opacity-0');
+    setTimeout(() => {
+        menuOverlay.classList.add('hidden');
+    }, 300); // match transition duration
+}
+
+if (menuBtn) menuBtn.addEventListener('click', openMenu);
+if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+
+// Close menu when clicking a link
+document.querySelectorAll('#side-menu a').forEach(link => {
     link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+        closeMenu();
     });
 });
 
