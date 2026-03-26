@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
+    "create-admin": "node backend/scripts/createAdmin.js",
+    "reset-admin": "node backend/scripts/resetAdmin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

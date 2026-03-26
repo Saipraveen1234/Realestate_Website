@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 140" width="100%" height="100%">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600&amp;display=swap');
+            .brand-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 60px; fill: #000000; letter-spacing: -1.5px; }
+            .brand-sub { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 38px; fill: #000000; letter-spacing: 0.5px; }
+        </style>
+    </defs>
+    <!-- Logo Marks (Stones) -->
+    <!-- Bottom Stone: Olive Green -->
+    <ellipse cx="65" cy="98" rx="42" ry="24" fill="#a5ae52" transform="rotate(-5 65 98)" />
+    <!-- Middle Stone: Orange -->
+    <path d="M 28 66 C 28 52, 45 50, 68 50 C 90 50, 106 58, 106 72 C 106 86, 90 85, 68 85 C 45 85, 28 80, 28 66 Z" fill="#ef7d50" />
+    <!-- Top Stone: Sky Blue -->
+    <path d="M 40 40 C 40 30, 50 28, 65 28 C 80 28, 90 32, 90 42 C 90 52, 80 50, 65 50 C 50 50, 40 45, 40 40 Z" fill="#31a8e1" />
+
+    <!-- Logo Text -->
+    <text x="130" y="76" class="brand-name">Soudha</text>
+    <text x="132" y="114" class="brand-sub">Projects</text>
+</svg>

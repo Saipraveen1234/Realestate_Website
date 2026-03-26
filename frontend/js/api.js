@@ -55,32 +55,53 @@ async function fetchCompanyStats() {
 // Render project card
 function renderProjectCard(project) {
   const statusBadge = project.status === 'upcoming'
-    ? '<span class="badge badge-launching">Launching Soon</span>'
+    ? '<span class="project-badge badge-launching">Launching Soon</span>'
     : project.status === 'completed'
-      ? '<span class="badge badge-completed">Completed</span>'
+      ? '<span class="project-badge badge-completed">Completed</span>'
       : '';
 
+  const brochureBtn = project.brochure
+    ? `<a href="${project.brochure}" target="_blank" class="card-action-btn border border-white/60 text-white hover:bg-white hover:text-dark-charcoal">
+        <i class="fas fa-file-pdf mr-1.5"></i>Brochure
+      </a>`
+    : '';
+
   return `
-    <div class="project-card" data-aos="fade-up">
-      <div class="relative">
+    <div class="project-card-overlay group" data-aos="fade-up">
+      <div class="relative overflow-hidden" style="aspect-ratio: 4/3;">
+        <img src="${project.image || 'assets/images/project-placeholder.jpg'}"
+             alt="${project.name}"
+             loading="lazy"
+             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
         ${statusBadge}
-        <img src="${project.image || 'assets/images/project-placeholder.jpg'}" alt="${project.name}">
-      </div>
-      <div class="p-6">
-        <h3 class="font-heading text-2xl font-bold text-primary-orange mb-4">${project.name}</h3>
-        <div class="space-y-2 text-gray-700 mb-6">
-          <p><i class="fas fa-ruler-combined text-primary-orange mr-2"></i><strong>Size:</strong> ${project.size}</p>
-          <p><i class="fas fa-map-marker-alt text-primary-orange mr-2"></i><strong>Location:</strong> ${project.location}</p>
-          <p><i class="fas fa-rupee-sign text-primary-orange mr-2"></i><strong>Price:</strong> ${project.price}</p>
-          <p><i class="fas fa-compass text-primary-orange mr-2"></i><strong>Facing:</strong> ${project.facing}</p>
+        <div class="absolute inset-0 bg-dark-charcoal/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
+          <div class="text-white">
+            <p class="text-primary-orange text-[10px] uppercase tracking-[0.25em] mb-2">${project.location}</p>
+            <h3 class="font-heading text-2xl font-bold mb-3">${project.name}</h3>
+            <div class="flex flex-wrap gap-x-3 gap-y-1 text-white/60 text-xs uppercase tracking-wider mb-5">
+              <span>${project.size}</span>
+              <span>·</span>
+              <span>${project.price}</span>
+              <span>·</span>
+              <span>${project.facing} Facing</span>
+            </div>
+            <div class="flex gap-3">
+              ${brochureBtn}
+              <a href="tel:+919999999999" class="card-action-btn bg-primary-orange text-white hover:bg-white hover:text-dark-charcoal">
+                <i class="fas fa-phone mr-1.5"></i>Contact
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="flex gap-3">
-          ${project.brochure ? `<a href="${project.brochure}" target="_blank" class="flex-1 bg-primary-orange text-white py-2 px-4 rounded hover:bg-orange-600 transition text-center">
-            <i class="fas fa-file-pdf mr-2"></i>Brochure
-          </a>` : ''}
-          <a href="tel:+919999999999" class="flex-1 bg-dark-charcoal text-white py-2 px-4 rounded hover:bg-gray-700 transition text-center">
-            <i class="fas fa-phone mr-2"></i>Contact
-          </a>
+      </div>
+      <div class="pt-4 pb-2 flex justify-between items-start gap-4">
+        <div>
+          <h3 class="font-heading text-lg font-bold text-dark-charcoal leading-tight">${project.name}</h3>
+          <p class="text-primary-orange text-xs font-medium tracking-wide uppercase mt-1">${project.location}</p>
+        </div>
+        <div class="text-right text-xs text-gray-400 uppercase tracking-wide flex-shrink-0 mt-0.5">
+          <p>${project.size}</p>
+          <p class="text-dark-charcoal font-semibold mt-0.5">${project.price}</p>
         </div>
       </div>
     </div>
@@ -94,10 +115,11 @@ function renderTestimonialCard(testimonial) {
   return `
     <div class="swiper-slide">
       <div class="testimonial-card">
-        <img src="${testimonial.photo || 'assets/images/avatar-placeholder.jpg'}" alt="${testimonial.name}">
-        <h4 class="font-heading text-xl font-semibold mb-2">${testimonial.name}</h4>
-        <div class="stars text-2xl mb-4">${stars}</div>
-        <p class="text-gray-600 italic">"${testimonial.testimonial}"</p>
+        <span class="quote-bg">"</span>
+        <img src="${testimonial.photo || 'assets/images/avatar-placeholder.jpg'}" alt="${testimonial.name}" loading="lazy">
+        <h4 class="font-heading text-lg font-bold text-dark-charcoal mb-1">${testimonial.name}</h4>
+        <div class="stars text-lg mb-4">${stars}</div>
+        <p class="text-gray-500 text-sm leading-relaxed italic">"${testimonial.testimonial}"</p>
       </div>
     </div>
   `;
@@ -141,19 +163,22 @@ async function loadProjects() {
 
 // Render hero slide
 function renderHeroSlide(slide) {
-  // Use a gradient overlay if no specific style provided
-  // We can customize background style if needed
   return `
-    <div class="swiper-slide h-full flex items-center justify-center relative">
-        <div class="absolute inset-0 bg-black opacity-40 z-10"></div>
-        <img src="${slide.image}" class="absolute inset-0 w-full h-full object-cover z-0" alt="${slide.title}">
-        <div class="text-center px-4 relative z-20 text-white">
-            <h1 class="font-heading text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg" data-aos="fade-up">
+    <div class="swiper-slide h-full flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative">
+        <div class="absolute inset-0 z-10" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.2) 100%);"></div>
+        <img src="${slide.image}" class="absolute inset-0 w-full h-full object-cover z-0" alt="${slide.title}" loading="lazy">
+        <div class="relative z-20 text-white max-w-3xl">
+            <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6" data-aos="fade-down">Soudha Projects</p>
+            <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-aos="fade-up">
                 ${slide.title}
             </h1>
-            <p class="text-xl md:text-2xl font-light drop-shadow-md" data-aos="fade-up" data-aos-delay="200">
-                ${slide.subtitle}
-            </p>
+            <div class="flex items-center gap-8 mb-10" data-aos="fade-up" data-aos-delay="150">
+                <div class="h-px w-16 bg-white/30 flex-shrink-0"></div>
+                <p class="text-sm text-white/65 font-light">${slide.subtitle}</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <a href="#ongoing-projects" class="hero-cta">Explore Projects</a>
+            </div>
         </div>
     </div>
   `;

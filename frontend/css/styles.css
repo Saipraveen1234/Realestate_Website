@@ -1,52 +1,330 @@
-/* Additional Custom Styles */
+/* ============================================
+   SOUDHA PROJECTS — Custom Styles
+   Primary: Teal #00C2CB  |  Dark: #1a202c
+   ============================================ */
 
-/* Navbar Scroll Effect */
-/* Navbar Scroll Effect */
-/* */
-#navbar.scrolled {
-  /* Slightly more opaque on scroll for better contrast */
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+/* ---- Float Animation (About logo) ---- */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
 }
 
-/* Hero Swiper Custom Styles */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(8px); opacity: 0.4; }
+}
+
+@keyframes whatsappPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ---- Gradient Text ---- */
+.text-gradient {
+  background: linear-gradient(135deg, #00C2CB 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Off-white Background ---- */
+.bg-off-white {
+  background-color: #f8fafc;
+}
+
+/* ---- Section Heading Decorator ---- */
+.section-heading {
+  display: inline-block;
+}
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 4px;
+  background: linear-gradient(90deg, #00C2CB, #0ea5e9);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* ---- Navbar ---- */
+#navbar {
+  background: transparent;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+#navbar.scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* Desktop nav links */
+.nav-desktop-link {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-desktop-link:hover {
+  color: #FF6B35;
+  border-color: #FF6B35;
+}
+
+#navbar.scrolled .nav-desktop-link {
+  color: rgba(26, 32, 44, 0.65);
+}
+
+#navbar.scrolled .nav-desktop-link:hover {
+  color: #FF6B35;
+}
+
+/* Mobile menu items */
+.menu-item-link {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+
+.menu-item-link:hover {
+  color: #FF6B35;
+  transform: translateX(8px);
+}
+
+/* Mobile menu social icons */
+.menu-social-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a202c;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.menu-social-icon:hover {
+  background: #FF6B35;
+  border-color: #FF6B35;
+  color: white;
+}
+
+/* ---- Hero Swiper ---- */
 .hero-swiper .swiper-button-next,
 .hero-swiper .swiper-button-prev {
-  color: #FF914D;
+  color: #ffffff;
+  background: rgba(0, 194, 203, 0.75);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.hero-swiper .swiper-button-next:hover,
+.hero-swiper .swiper-button-prev:hover {
+  background: rgba(0, 194, 203, 1);
+  transform: scale(1.08);
+}
+
+.hero-swiper .swiper-button-next::after,
+.hero-swiper .swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.55);
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  transition: all 0.3s ease;
 }
 
 .hero-swiper .swiper-pagination-bullet-active {
-  background-color: #FF914D;
+  background-color: #00C2CB;
+  width: 28px;
+  border-radius: 4px;
 }
 
-/* Project Card Styles */
-.project-card {
+/* ---- Hero Scroll Indicator ---- */
+.scroll-indicator {
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+/* ---- Hero CTA Button ---- */
+.hero-cta {
+  display: inline-block;
+  background: #FF6B35;
+  color: #ffffff;
+  padding: 14px 36px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.25s ease;
+}
+
+.hero-cta:hover {
+  background: #e55a24;
+  transform: translateY(-2px);
+}
+
+.hero-cta-outline {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  padding: 13px 32px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-cta-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+}
+
+/* ---- Project Card (Hover Overlay Style) ---- */
+.project-card-overlay {
+  cursor: pointer;
+}
+
+.project-card-overlay .card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* ---- Project Badge (on card image) ---- */
+.project-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 12px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+.badge-launching {
+  background: #FF6B35;
+  color: white;
+}
+
+.badge-completed {
+  background: #10b981;
+  color: white;
+}
+
+/* ---- Contact Form Inputs ---- */
+.contact-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #d1d5db;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: #1a202c;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.contact-input::placeholder {
+  color: #9ca3af;
+}
+
+.contact-input:focus {
+  border-bottom-color: #FF6B35;
+}
+
+select.contact-input {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 24px;
+}
+
+/* ---- Footer Social Icons ---- */
+.footer-social-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-social-icon:hover {
+  background: #FF6B35;
+  border-color: #FF6B35;
+  color: white;
+}
+
+/* ---- Testimonial Card ---- */
+.testimonial-card {
   background: white;
-  border: 2px solid #FF914D;
-  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 36px 28px 28px;
+  text-align: center;
+  min-height: 300px;
+  position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 194, 203, 0.12);
 }
 
-.project-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-}
-
-/* Testimonial Card Styles */
-.testimonial-card {
-  background: white;
-  border: 2px solid #FF914D;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  min-height: 300px;
+.testimonial-card .quote-bg {
+  font-size: 96px;
+  line-height: 1;
+  color: #00C2CB;
+  opacity: 0.07;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-family: Georgia, serif;
+  pointer-events: none;
+  user-select: none;
 }
 
 .testimonial-card img {
@@ -54,42 +332,55 @@
   height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto 15px;
+  margin: 0 auto 14px;
+  border: 3px solid #00C2CB;
+  box-shadow: 0 4px 12px rgba(0, 194, 203, 0.2);
 }
 
 .stars {
   color: #F1C40F;
+  letter-spacing: 2px;
 }
 
-/* Back to Top Button Animation */
+/* ---- Stats Icon Bubble (legacy — no longer used) ---- */
+.stat-icon-bubble { display: none; }
+
+/* Legacy badge class — replaced by .project-badge */
+
+/* ---- WhatsApp Pulse ---- */
+.whatsapp-float {
+  animation: whatsappPulse 2.4s ease-out infinite;
+}
+
+/* ---- Back to Top ---- */
+#back-to-top {
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
 #back-to-top.show {
   opacity: 1;
   pointer-events: all;
 }
 
-/* Smooth transitions */
-* {
-  transition: color 0.3s ease, background-color 0.3s ease;
+/* ---- About section accent bar ---- */
+.about-accent-bar {
+  width: 48px;
+  height: 4px;
+  background: linear-gradient(90deg, #00C2CB, #0ea5e9);
+  border-radius: 2px;
+  margin-bottom: 20px;
 }
 
-/* Badge Styles */
-.badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  z-index: 10;
+/* ---- Testimonials Swiper Nav ---- */
+.testimonials-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev {
+  color: #00C2CB;
 }
 
-.badge-launching {
-  background-color: #FF914D;
-  color: white;
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background-color: #00C2CB;
 }
 
-.badge-completed {
-  background-color: #28a745;
-  color: white;
+.testimonials-swiper .swiper-wrapper {
+  padding-bottom: 52px;
 }
