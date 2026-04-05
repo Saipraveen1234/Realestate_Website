@@ -61,47 +61,49 @@ function renderProjectCard(project) {
       : '';
 
   const brochureBtn = project.brochure
-    ? `<a href="${project.brochure}" target="_blank" class="card-action-btn border border-white/60 text-white hover:bg-white hover:text-dark-charcoal">
-        <i class="fas fa-file-pdf mr-1.5"></i>Brochure
-      </a>`
+    ? `<a href="${project.brochure}" target="_blank"
+          class="card-action-btn border-white/50 text-white hover:bg-white hover:text-dark-charcoal">
+          <i class="fas fa-file-pdf"></i>Brochure
+       </a>`
     : '';
 
   return `
     <div class="project-card-overlay group" data-aos="fade-up">
-      <div class="relative overflow-hidden" style="aspect-ratio: 4/3;">
+      <!-- Image wrap -->
+      <div class="card-image-wrap">
+        <div class="card-top-border"></div>
         <img src="${project.image || 'assets/images/project-placeholder.jpg'}"
-             alt="${project.name}"
-             loading="lazy"
-             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+             alt="${project.name}" loading="lazy">
         ${statusBadge}
-        <div class="absolute inset-0 bg-dark-charcoal/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
+        <!-- Hover overlay -->
+        <div class="card-hover-overlay">
           <div class="text-white">
-            <p class="text-primary-orange text-[10px] uppercase tracking-[0.25em] mb-2">${project.location}</p>
-            <h3 class="font-heading text-2xl font-bold mb-3">${project.name}</h3>
-            <div class="flex flex-wrap gap-x-3 gap-y-1 text-white/60 text-xs uppercase tracking-wider mb-5">
-              <span>${project.size}</span>
-              <span>·</span>
-              <span>${project.price}</span>
-              <span>·</span>
-              <span>${project.facing} Facing</span>
-            </div>
-            <div class="flex gap-3">
+            <p class="text-primary-orange text-[10px] uppercase tracking-[0.25em] mb-1.5">${project.location}</p>
+            <h3 class="font-heading text-xl font-bold mb-2 leading-tight">${project.name}</h3>
+            <p class="text-white/55 text-xs uppercase tracking-wider mb-5">
+              ${project.size}&nbsp;&nbsp;·&nbsp;&nbsp;${project.price}&nbsp;&nbsp;·&nbsp;&nbsp;${project.facing} Facing
+            </p>
+            <div class="flex flex-wrap gap-2">
               ${brochureBtn}
-              <a href="tel:+919999999999" class="card-action-btn bg-primary-orange text-white hover:bg-white hover:text-dark-charcoal">
-                <i class="fas fa-phone mr-1.5"></i>Contact
+              <a href="tel:+919999999999"
+                 class="card-action-btn bg-primary-orange border-primary-orange text-white hover:bg-white hover:border-white hover:text-dark-charcoal">
+                <i class="fas fa-phone"></i>Enquire
               </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="pt-4 pb-2 flex justify-between items-start gap-4">
-        <div>
-          <h3 class="font-heading text-lg font-bold text-dark-charcoal leading-tight">${project.name}</h3>
-          <p class="text-primary-orange text-xs font-medium tracking-wide uppercase mt-1">${project.location}</p>
-        </div>
-        <div class="text-right text-xs text-gray-400 uppercase tracking-wide flex-shrink-0 mt-0.5">
-          <p>${project.size}</p>
-          <p class="text-dark-charcoal font-semibold mt-0.5">${project.price}</p>
+      <!-- Caption strip -->
+      <div class="card-caption">
+        <div class="flex justify-between items-start gap-4">
+          <div class="min-w-0">
+            <h3 class="font-heading text-base font-bold text-dark-charcoal truncate">${project.name}</h3>
+            <p class="text-primary-orange text-[10px] font-semibold tracking-[0.15em] uppercase mt-1">${project.location}</p>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <p class="text-dark-charcoal font-bold text-sm">${project.price}</p>
+            <p class="text-gray-400 text-[10px] uppercase tracking-wider mt-0.5">${project.size}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -116,10 +118,20 @@ function renderTestimonialCard(testimonial) {
     <div class="swiper-slide">
       <div class="testimonial-card">
         <span class="quote-bg">"</span>
-        <img src="${testimonial.photo || 'assets/images/avatar-placeholder.jpg'}" alt="${testimonial.name}" loading="lazy">
-        <h4 class="font-heading text-lg font-bold text-dark-charcoal mb-1">${testimonial.name}</h4>
-        <div class="stars text-lg mb-4">${stars}</div>
-        <p class="text-gray-500 text-sm leading-relaxed italic">"${testimonial.testimonial}"</p>
+        <div class="relative z-10">
+          <div class="stars mb-4">${stars}</div>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6 italic">
+            "${testimonial.testimonial}"
+          </p>
+          <div class="flex items-center gap-3 border-t border-gray-100 pt-5">
+            <img src="${testimonial.photo || 'assets/images/avatar-placeholder.jpg'}"
+                 alt="${testimonial.name}" loading="lazy">
+            <div>
+              <h4 class="font-heading text-sm font-bold text-dark-charcoal leading-tight">${testimonial.name}</h4>
+              <p class="text-gray-400 text-[10px] uppercase tracking-widest mt-0.5">Verified Client</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `;

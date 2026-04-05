@@ -15,14 +15,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-orange': '#00C2CB', // New Brand Teal
-                        'primary-blue': '#2D3748',   // New Brand Dark Grey
-                        'brand-yellow': '#FACC15',   // New Brand Yellow Accent
-                        'text-dark': '#333333',
-                        'text-light': '#666666',
-                        'bg-light': '#f4f4f4',
+                        'primary-orange': '#ef7d50', // Logo Coral
+                        'primary-blue': '#31a8e1', // Logo Sky Blue
+                        'olive': '#a5ae52', // Logo Olive Green
                         'whatsapp-green': '#25D366',
-                        'dark-charcoal': '#1a202c', // Restored for text/bg usage
+                        'dark-charcoal': '#1a202c',
                     },
                     fontFamily: {
                         'heading': ['Cinzel', 'serif'],
@@ -59,8 +56,12 @@
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                    <img src="assets/images/logo.png" alt="Soudha Projects Logo"
-                        class="h-12 w-auto object-contain bg-white/90 backdrop-blur-sm rounded-lg p-1.5 shadow-sm transition-transform hover:scale-105">
+                    <!-- White version: visible on transparent/dark navbar -->
+                    <img src="assets/images/logo.svg" alt="Soudha Projects Logo" id="logo-white"
+                        class="h-16 w-auto max-w-[220px] object-contain transition-all duration-300 hover:opacity-90">
+                    <!-- Dark version: visible when navbar scrolls to white -->
+                    <img src="assets/images/logo.svg" alt="Soudha Projects Logo" id="logo-dark"
+                        class="h-16 w-auto max-w-[220px] object-contain transition-all duration-300 hover:opacity-90 hidden">
                 </a>
             </div>
 
@@ -75,11 +76,11 @@
             <!-- Right: Inquire CTA + Mobile Hamburger -->
             <div class="flex items-center gap-3">
                 <a href="tel:+919999999999"
-                    class="hidden md:block bg-dark-charcoal text-white text-xs font-medium uppercase tracking-[0.2em] px-7 py-3 hover:bg-primary-orange transition-colors duration-300">
+                    class="hidden md:block navbar-inquire-btn text-white text-xs font-medium uppercase tracking-[0.2em] px-7 py-3 transition-colors duration-300">
                     Inquire
                 </a>
                 <button id="menu-btn"
-                    class="md:hidden flex-shrink-0 text-dark-charcoal bg-white/90 backdrop-blur-sm p-2.5 w-10 h-10 flex items-center justify-center shadow hover:bg-primary-orange hover:text-white transition-all duration-300 focus:outline-none z-50">
+                    class="md:hidden flex-shrink-0 text-white bg-white/15 backdrop-blur-sm border border-white/30 p-2.5 w-10 h-10 flex items-center justify-center hover:bg-primary-orange hover:border-primary-orange transition-all duration-300 focus:outline-none z-50">
                     <i class="fas fa-bars text-base"></i>
                 </button>
             </div>
@@ -95,7 +96,8 @@
             <div class="flex-1 flex flex-col max-w-5xl mx-auto w-full p-8 relative overflow-y-auto">
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-10 pb-6 border-b border-gray-100">
-                    <span class="font-heading text-lg font-bold tracking-widest uppercase text-primary-orange">Menu</span>
+                    <span
+                        class="font-heading text-lg font-bold tracking-widest uppercase text-primary-orange">Menu</span>
                     <button id="close-menu-btn"
                         class="text-3xl text-gray-300 hover:text-primary-orange hover:rotate-90 transition-all duration-300">
                         <i class="fas fa-times"></i>
@@ -133,16 +135,21 @@
         <div class="swiper hero-swiper h-full">
             <div class="swiper-wrapper" id="hero-swiper-wrapper">
                 <!-- Slide 1 -->
-                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
-                    <div class="absolute inset-0 opacity-20" style="background: radial-gradient(ellipse at 30% 60%, #00C2CB 0%, transparent 60%);"></div>
+                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative"
+                    style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+                    <div class="absolute inset-0 opacity-20"
+                        style="background: radial-gradient(ellipse at 30% 60%, #31a8e1 0%, transparent 60%);"></div>
                     <div class="relative z-10 text-white max-w-3xl">
-                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6" data-aos="fade-down">West Hyderabad's Premier Developer</p>
-                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-aos="fade-up">
+                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6"
+                            data-aos="fade-down">West Hyderabad's Premier Developer</p>
+                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight"
+                            data-aos="fade-up">
                             Welcome to<br><span class="text-primary-orange italic">Soudha Projects</span>
                         </h1>
                         <div class="flex items-center gap-8 mb-10" data-aos="fade-up" data-aos-delay="150">
                             <div class="h-px w-16 bg-white/30 flex-shrink-0"></div>
-                            <p class="text-sm text-white/65 font-light">Building Trust, Creating Value, Fulfilling Dreams</p>
+                            <p class="text-sm text-white/65 font-light">Building Trust, Creating Value, Fulfilling
+                                Dreams</p>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="300">
                             <a href="#ongoing-projects" class="hero-cta">Explore Projects</a>
@@ -152,11 +159,15 @@
                 </div>
 
                 <!-- Slide 2 -->
-                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);">
-                    <div class="absolute inset-0 opacity-20" style="background: radial-gradient(ellipse at 70% 40%, #00C2CB 0%, transparent 55%);"></div>
+                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative"
+                    style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);">
+                    <div class="absolute inset-0 opacity-20"
+                        style="background: radial-gradient(ellipse at 70% 40%, #31a8e1 0%, transparent 55%);"></div>
                     <div class="relative z-10 text-white max-w-3xl">
-                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6" data-aos="fade-down">Premium Real Estate</p>
-                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-aos="fade-up">
+                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6"
+                            data-aos="fade-down">Premium Real Estate</p>
+                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight"
+                            data-aos="fade-up">
                             Premium Properties,<br><span class="text-primary-orange italic">Prime Locations</span>
                         </h1>
                         <div class="flex items-center gap-8 mb-10" data-aos="fade-up" data-aos-delay="150">
@@ -171,11 +182,15 @@
                 </div>
 
                 <!-- Slide 3 -->
-                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative" style="background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);">
-                    <div class="absolute inset-0 opacity-20" style="background: radial-gradient(ellipse at 50% 70%, #00C2CB 0%, transparent 60%);"></div>
+                <div class="swiper-slide flex items-end pb-28 md:pb-36 px-8 md:px-20 lg:px-28 relative"
+                    style="background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);">
+                    <div class="absolute inset-0 opacity-20"
+                        style="background: radial-gradient(ellipse at 50% 70%, #31a8e1 0%, transparent 60%);"></div>
                     <div class="relative z-10 text-white max-w-3xl">
-                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6" data-aos="fade-down">High Growth Region</p>
-                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-aos="fade-up">
+                        <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6"
+                            data-aos="fade-down">High Growth Region</p>
+                        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight"
+                            data-aos="fade-up">
                             Invest in<br><span class="text-primary-orange italic">West Hyderabad</span>
                         </h1>
                         <div class="flex items-center gap-8 mb-10" data-aos="fade-up" data-aos-delay="150">
@@ -196,62 +211,84 @@
             <div class="swiper-pagination"></div>
         </div>
 
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 scroll-indicator">
-            <a href="#about" class="flex flex-col items-center gap-2 text-white/60 hover:text-white transition">
-                <span class="text-xs tracking-widest uppercase font-medium">Scroll</span>
-                <i class="fas fa-chevron-down text-lg"></i>
+        <!-- Scroll Indicator — bottom-left, clear of the nav arrows -->
+        <div class="absolute bottom-12 left-8 md:left-12 z-20 scroll-indicator">
+            <a href="#about" class="flex items-center gap-3 text-white/50 hover:text-white transition group">
+                <div class="w-px h-10 bg-white/25 group-hover:bg-white/50 transition-colors"></div>
+                <span class="text-[10px] tracking-[0.3em] uppercase font-medium">Scroll</span>
             </a>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <!-- Left: Eyebrow + headline + logo -->
-            <div class="lg:col-span-5" data-aos="fade-right">
-                <p class="text-primary-orange font-body tracking-[0.3em] uppercase text-xs font-medium mb-6">The Soudha Story</p>
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal leading-tight mb-10">
-                    We believe a home is more than a structure—it is a <span class="text-primary-orange italic">promise kept.</span>
-                </h2>
-                <div class="flex items-center justify-start mt-8">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-primary-orange/5 scale-125"></div>
-                        <img src="assets/images/logo.png" alt="Soudha Projects Logo"
-                            class="relative w-36 md:w-48 object-contain p-4 bg-white shadow-lg animate-float">
-                    </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+
+            <!-- Left: Dark Visual Panel -->
+            <div class="lg:col-span-5 relative overflow-hidden rounded-2xl shadow-2xl"
+                style="background: linear-gradient(135deg, #e5e5e5 0%, #ffffff 100%);" data-aos="fade-right">
+                <div class="absolute inset-0 opacity-10"
+                    style="background: radial-gradient(circle at 50% 50%, #31a8e1 0%, transparent 70%);"></div>
+                <div class="relative z-10 h-full flex items-center justify-center p-12">
+                    <img src="assets/images/logo.svg" alt="Soudha Projects Logo">
+
                 </div>
+
             </div>
 
             <!-- Right: Copy + highlights + CTA -->
-            <div class="lg:col-span-7 lg:pl-8" data-aos="fade-left">
-                <div class="space-y-10">
-                    <p class="font-body text-xl text-gray-600 leading-relaxed">
+            <div class="lg:col-span-7 lg:pl-16 pt-12 lg:pt-0 flex items-center" data-aos="fade-left">
+                <div class="w-full">
+                    <p class="section-eyebrow">The Soudha Story</p>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal leading-tight mb-8">
+                        A home is more than a structure — it is a <span class="text-primary-orange italic">promise
+                            kept.</span>
+                    </h2>
+                    <p class="font-body text-lg text-gray-500 leading-relaxed mb-5">
                         Soudha Projects is a distinguished real estate development company dedicated to offering premium
-                        properties in West Hyderabad's most sought-after locations. With a commitment to transparency and
+                        properties in West Hyderabad's most sought-after locations. With a commitment to transparency
+                        and
                         excellence, we specialize in Open Plots, Villas, and Farm Lands that promise high appreciation.
                     </p>
-                    <p class="font-body text-base text-gray-500 leading-relaxed">
-                        Our mission is to empower our clients with secure and profitable investment opportunities.
-                        At Soudha Projects, we don't just sell plots — we build lasting relationships rooted in trust and quality.
+                    <p class="font-body text-sm text-gray-400 leading-relaxed mb-10">
+                        Our mission is to empower clients with secure and profitable investment opportunities.
+                        At Soudha Projects, we don't just sell plots — we build lasting relationships rooted in trust
+                        and quality.
                     </p>
-                    <div class="grid grid-cols-3 gap-0 border-t border-gray-100 pt-8">
-                        <div class="text-center py-6 px-4 border-r border-gray-100 hover:bg-primary-orange/5 transition-colors duration-300">
-                            <i class="fas fa-shield-alt text-2xl text-primary-orange mb-3 block"></i>
-                            <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">Trusted</p>
+
+                    <!-- Highlights list -->
+                    <div class="space-y-0 mb-10">
+                        <div class="about-highlight">
+                            <div class="about-highlight-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <p class="text-sm font-semibold text-dark-charcoal">Trusted Developer</p>
+                                <p class="text-xs text-gray-400 mt-0.5">Transparent dealings with documented approvals
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-center py-6 px-4 border-r border-gray-100 hover:bg-primary-orange/5 transition-colors duration-300">
-                            <i class="fas fa-map-marked-alt text-2xl text-primary-orange mb-3 block"></i>
-                            <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">Prime Locations</p>
+                        <div class="about-highlight">
+                            <div class="about-highlight-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <p class="text-sm font-semibold text-dark-charcoal">Prime Locations</p>
+                                <p class="text-xs text-gray-400 mt-0.5">Strategically chosen for maximum appreciation
+                                </p>
+                            </div>
                         </div>
-                        <div class="text-center py-6 px-4 hover:bg-primary-orange/5 transition-colors duration-300">
-                            <i class="fas fa-handshake text-2xl text-primary-orange mb-3 block"></i>
-                            <p class="text-xs font-semibold text-gray-600 uppercase tracking-widest">Transparent</p>
+                        <div class="about-highlight">
+                            <div class="about-highlight-icon"><i class="fas fa-handshake"></i></div>
+                            <div>
+                                <p class="text-sm font-semibold text-dark-charcoal">End-to-End Support</p>
+                                <p class="text-xs text-gray-400 mt-0.5">From site visit to registration, we guide you
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <a href="#ongoing-projects" class="group inline-flex items-center gap-4 text-dark-charcoal hover:text-primary-orange transition-colors duration-300">
-                        <span class="uppercase text-xs tracking-widest font-semibold">View Our Projects</span>
-                        <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform duration-300"></i>
+
+                    <a href="#ongoing-projects"
+                        class="group inline-flex items-center gap-4 text-dark-charcoal hover:text-primary-orange transition-colors duration-300">
+                        <span class="uppercase text-xs tracking-widest font-semibold">Explore Our Projects</span>
+                        <i
+                            class="fas fa-arrow-right group-hover:translate-x-2 transition-transform duration-300 text-primary-orange"></i>
                     </a>
                 </div>
             </div>
@@ -262,32 +299,42 @@
     <section class="counter-section py-28 bg-dark-charcoal text-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="mb-16">
-                <p class="text-primary-orange uppercase tracking-[0.3em] text-xs font-medium mb-4">Our Track Record</p>
+                <p class="section-eyebrow" style="color:#ef7d50;">Our Track Record</p>
                 <h2 class="font-heading text-4xl md:text-5xl font-bold">Numbers That Speak</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 border-t border-white/10">
                 <!-- Stat 1 -->
-                <div class="py-12 md:pr-12 border-b md:border-b-0 md:border-r border-white/10" data-aos="fade-up">
-                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-4">
+                <div class="py-14 md:pr-14 border-b md:border-b-0 md:border-r border-white/10" data-aos="fade-up">
+                    <div class="stat-rule"></div>
+                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-3 leading-none">
                         <span class="counter" id="stat-experience" data-target="0">0</span>+
                     </h2>
-                    <p class="text-xs text-white/50 uppercase tracking-[0.25em]">Years of Experience</p>
+                    <p class="text-xs text-white/50 uppercase tracking-[0.25em] mb-3">Years of Experience</p>
+                    <p class="text-white/25 text-xs leading-relaxed max-w-[180px]">Consistently delivering excellence
+                        since our founding</p>
                 </div>
 
                 <!-- Stat 2 -->
-                <div class="py-12 md:px-12 border-b md:border-b-0 md:border-r border-white/10" data-aos="fade-up" data-aos-delay="150">
-                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-4">
+                <div class="py-14 md:px-14 border-b md:border-b-0 md:border-r border-white/10" data-aos="fade-up"
+                    data-aos-delay="150">
+                    <div class="stat-rule"></div>
+                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-3 leading-none">
                         <span class="counter" id="stat-clients" data-target="0">0</span>+
                     </h2>
-                    <p class="text-xs text-white/50 uppercase tracking-[0.25em]">Happy Clients</p>
+                    <p class="text-xs text-white/50 uppercase tracking-[0.25em] mb-3">Happy Clients</p>
+                    <p class="text-white/25 text-xs leading-relaxed max-w-[180px]">Families who trusted us with their
+                        most important investment</p>
                 </div>
 
                 <!-- Stat 3 -->
-                <div class="py-12 md:pl-12" data-aos="fade-up" data-aos-delay="300">
-                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-4">
+                <div class="py-14 md:pl-14" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-rule"></div>
+                    <h2 class="font-heading text-7xl md:text-8xl font-bold text-primary-orange mb-3 leading-none">
                         <span class="counter" id="stat-plots" data-target="0">0</span>+
                     </h2>
-                    <p class="text-xs text-white/50 uppercase tracking-[0.25em]">Plots Sold</p>
+                    <p class="text-xs text-white/50 uppercase tracking-[0.25em] mb-3">Plots Sold</p>
+                    <p class="text-white/25 text-xs leading-relaxed max-w-[180px]">Premium plots across West Hyderabad's
+                        fastest-growing corridors</p>
                 </div>
             </div>
         </div>
@@ -298,10 +345,11 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6" data-aos="fade-up">
                 <div>
-                    <p class="text-primary-orange font-medium uppercase tracking-[0.3em] text-xs mb-4">Active Developments</p>
+                    <p class="section-eyebrow">Active Developments</p>
                     <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal">Ongoing Projects</h2>
                 </div>
-                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs">Explore our premium projects ready for investment</p>
+                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs text-right">Explore our premium plots
+                    ready for investment</p>
             </div>
 
             <div id="ongoing-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
@@ -318,10 +366,11 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6" data-aos="fade-up">
                 <div>
-                    <p class="text-primary-orange font-medium uppercase tracking-[0.3em] text-xs mb-4">Coming Soon</p>
+                    <p class="section-eyebrow">Coming Soon</p>
                     <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal">Upcoming Projects</h2>
                 </div>
-                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs">Be the first to invest in our upcoming ventures</p>
+                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs text-right">Be the first to invest in
+                    our next ventures</p>
             </div>
 
             <div id="upcoming-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
@@ -338,10 +387,11 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6" data-aos="fade-up">
                 <div>
-                    <p class="text-primary-orange font-medium uppercase tracking-[0.3em] text-xs mb-4">Successfully Delivered</p>
+                    <p class="section-eyebrow">Successfully Delivered</p>
                     <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal">Completed Projects</h2>
                 </div>
-                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs">Successfully delivered with satisfied customers</p>
+                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs text-right">Handed over with
+                    satisfied customers</p>
             </div>
 
             <div id="completed-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
@@ -358,10 +408,11 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6" data-aos="fade-up">
                 <div>
-                    <p class="text-primary-orange font-medium uppercase tracking-[0.3em] text-xs mb-4">Client Stories</p>
+                    <p class="section-eyebrow">Client Stories</p>
                     <h2 class="font-heading text-4xl md:text-5xl font-bold text-dark-charcoal">What Our Clients Say</h2>
                 </div>
-                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs">Trusted by hundreds of happy customers across West Hyderabad</p>
+                <p class="text-gray-400 text-xs uppercase tracking-widest max-w-xs text-right">Trusted by hundreds of
+                    happy families across West Hyderabad</p>
             </div>
 
             <div class="swiper testimonials-swiper">
@@ -382,14 +433,14 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32 bg-white">
+    <section id="contact" class="py-32 bg-off-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-28">
                 <!-- Left: Info -->
                 <div data-aos="fade-right">
-                    <p class="text-primary-orange uppercase tracking-[0.3em] text-xs font-medium mb-6">Get In Touch</p>
+                    <p class="section-eyebrow">Get In Touch</p>
                     <h2 class="font-heading text-5xl md:text-6xl font-bold text-dark-charcoal leading-tight mb-14">
-                        Begin your<br><span class="italic">investment.</span>
+                        Begin your<br><span class="italic text-primary-orange">investment.</span>
                     </h2>
                     <div class="space-y-8">
                         <div class="flex items-start gap-6">
@@ -407,7 +458,9 @@
                             </div>
                             <div>
                                 <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Phone</p>
-                                <a href="tel:+919999999999" class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">+91 99999 99999</a>
+                                <a href="tel:+919999999999"
+                                    class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">+91
+                                    99999 99999</a>
                             </div>
                         </div>
                         <div class="flex items-start gap-6">
@@ -416,25 +469,30 @@
                             </div>
                             <div>
                                 <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Email</p>
-                                <a href="mailto:Contact@soudhaprojects.com" class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">Contact@soudhaprojects.com</a>
+                                <a href="mailto:Contact@soudhaprojects.com"
+                                    class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">Contact@soudhaprojects.com</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Form -->
-                <div class="bg-gray-50 p-10 md:p-12" data-aos="fade-left">
+                <div class="bg-white p-10 md:p-12 border border-gray-100" data-aos="fade-left">
                     <form class="space-y-8">
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Full Name</label>
+                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Full
+                                Name</label>
                             <input type="text" placeholder="Your full name" class="contact-input">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Phone Number</label>
+                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Phone
+                                Number</label>
                             <input type="tel" placeholder="+91 99999 99999" class="contact-input">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Inquiry Type</label>
+                            <label
+                                class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Inquiry
+                                Type</label>
                             <select class="contact-input">
                                 <option>Open Plots</option>
                                 <option>Villas</option>
@@ -443,8 +501,10 @@
                             </select>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Message</label>
-                            <textarea rows="3" placeholder="Tell us about your requirements..." class="contact-input resize-none"></textarea>
+                            <label
+                                class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Message</label>
+                            <textarea rows="3" placeholder="Tell us about your requirements..."
+                                class="contact-input resize-none"></textarea>
                         </div>
                         <button type="submit"
                             class="w-full bg-dark-charcoal text-white py-4 text-xs uppercase tracking-[0.25em] font-medium hover:bg-primary-orange transition-colors duration-300">
@@ -463,20 +523,27 @@
                 <!-- Company Info -->
                 <div>
                     <a href="index.html" class="block mb-5">
-                        <img src="assets/images/logo.png" alt="Soudha Projects Logo"
-                            class="h-16 w-auto object-contain bg-white p-2">
+                        <img src="assets/images/logo-white.svg" alt="Soudha Projects Logo"
+                            class="h-12 w-auto max-w-[180px] object-contain">
                     </a>
-                    <p class="text-white/50 text-sm leading-relaxed">Building Trust, Creating Value, Fulfilling Dreams</p>
+                    <p class="text-white/50 text-sm leading-relaxed">Building Trust, Creating Value, Fulfilling Dreams
+                    </p>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
                     <h4 class="text-xs font-semibold uppercase tracking-widest mb-6 text-white/40">Quick Links</h4>
                     <ul class="space-y-3">
-                        <li><a href="#about" class="text-white/70 hover:text-primary-orange transition text-sm">About Us</a></li>
-                        <li><a href="#ongoing-projects" class="text-white/70 hover:text-primary-orange transition text-sm">Ongoing Projects</a></li>
-                        <li><a href="#upcoming-projects" class="text-white/70 hover:text-primary-orange transition text-sm">Upcoming Projects</a></li>
-                        <li><a href="#testimonials" class="text-white/70 hover:text-primary-orange transition text-sm">Testimonials</a></li>
+                        <li><a href="#about" class="text-white/70 hover:text-primary-orange transition text-sm">About
+                                Us</a></li>
+                        <li><a href="#ongoing-projects"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Ongoing Projects</a>
+                        </li>
+                        <li><a href="#upcoming-projects"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Upcoming Projects</a>
+                        </li>
+                        <li><a href="#testimonials"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Testimonials</a></li>
                     </ul>
                 </div>
 
@@ -484,9 +551,12 @@
                 <div>
                     <h4 class="text-xs font-semibold uppercase tracking-widest mb-6 text-white/40">Categories</h4>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Premium Open Plots</a></li>
-                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Luxury Villas</a></li>
-                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Farmlands</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Premium Open
+                                Plots</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Luxury
+                                Villas</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Farmlands</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -504,7 +574,8 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-envelope text-primary-orange flex-shrink-0"></i>
-                            <a href="mailto:Contact@soudhaprojects.com" class="hover:text-primary-orange transition break-all">Contact@soudhaprojects.com</a>
+                            <a href="mailto:Contact@soudhaprojects.com"
+                                class="hover:text-primary-orange transition break-all">Contact@soudhaprojects.com</a>
                         </li>
                     </ul>
                     <div class="flex space-x-3 mt-6">
@@ -517,7 +588,8 @@
             </div>
 
             <!-- Copyright -->
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs uppercase tracking-widest">
+            <div
+                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs uppercase tracking-widest">
                 <p>&copy; 2025 Soudha Projects. All Rights Reserved.</p>
                 <p>Hyderabad, Telangana, India</p>
             </div>

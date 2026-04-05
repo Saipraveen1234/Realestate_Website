@@ -29,15 +29,27 @@ const heroSwiper = new Swiper('.hero-swiper', {
 });
 */
 
-// Navbar Scroll Effect
+// Navbar Scroll Effect + Logo Swap
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
+const logoWhite = document.getElementById('logo-white');
+const logoDark  = document.getElementById('logo-dark');
+
+function updateNavbar() {
     if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
+        // Swap to dark logo (readable on white navbar)
+        if (logoWhite) logoWhite.classList.add('hidden');
+        if (logoDark)  logoDark.classList.remove('hidden');
     } else {
         navbar.classList.remove('scrolled');
+        // Swap to white logo (readable on dark hero)
+        if (logoWhite) logoWhite.classList.remove('hidden');
+        if (logoDark)  logoDark.classList.add('hidden');
     }
-});
+}
+
+window.addEventListener('scroll', updateNavbar);
+updateNavbar(); // Run once on load to set initial state
 
 // Mobile Menu Toggle
 // Side Menu Logic
