@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Project details - Soudha Projects">
+    <title id="page-title">Project Details - Soudha Projects</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-orange': '#ef7d50',
+                        'primary-blue': '#31a8e1',
+                        'olive': '#a5ae52',
+                        'whatsapp-green': '#25D366',
+                        'dark-charcoal': '#1a202c',
+                    },
+                    fontFamily: {
+                        'heading': ['Cinzel', 'serif'],
+                        'body': ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="font-body text-dark-charcoal">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-sm">
+        <div class="px-6 md:px-12 py-4 flex justify-between items-center max-w-7xl mx-auto">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="Soudha Projects Logo"
+                        class="h-14 w-auto max-w-[200px] object-contain">
+                </a>
+            </div>
+            <div class="hidden md:flex items-center gap-10">
+                <a href="index.html#about" class="nav-desktop-link !text-dark-charcoal">About</a>
+                <a href="index.html#ongoing-projects" class="nav-desktop-link !text-dark-charcoal">Projects</a>
+                <a href="index.html#testimonials" class="nav-desktop-link !text-dark-charcoal">Testimonials</a>
+                <a href="index.html#contact" class="nav-desktop-link !text-dark-charcoal">Contact</a>
+            </div>
+            <a href="tel:+919371561234"
+                class="navbar-inquire-btn text-white text-xs font-medium uppercase tracking-[0.2em] px-7 py-3 transition-colors duration-300">
+                Inquire
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="relative h-[60vh] min-h-[420px] flex items-end pb-16 px-6 md:px-16">
+        <div id="hero-image" class="absolute inset-0 bg-cover bg-center"
+            style="background-image:url('assets/images/project-placeholder.jpg');"></div>
+        <div class="absolute inset-0"
+            style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.2) 100%);">
+        </div>
+        <div class="relative z-10 max-w-4xl text-white" data-aos="fade-up">
+            <p id="detail-status" class="tracking-[0.3em] uppercase text-xs text-primary-orange mb-4 font-semibold">
+            </p>
+            <h1 id="detail-name" class="shimmer-text font-heading text-4xl md:text-6xl font-normal mb-4 leading-tight">
+                Loading...
+            </h1>
+            <p id="detail-location" class="text-white/70 text-sm md:text-base flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-primary-orange"></i> <span></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Overview Stats -->
+    <section class="max-w-6xl mx-auto px-6 md:px-12 -mt-10 relative z-20">
+        <div class="bg-white border border-gray-100 shadow-lg grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100" data-aos="fade-up">
+            <div class="p-6 text-center">
+                <p class="text-gray-400 text-[10px] uppercase tracking-widest mb-2">Size</p>
+                <p id="stat-size" class="font-heading font-bold text-dark-charcoal text-sm md:text-base">-</p>
+            </div>
+            <div class="p-6 text-center">
+                <p class="text-gray-400 text-[10px] uppercase tracking-widest mb-2">Price</p>
+                <p id="stat-price" class="font-heading font-bold text-dark-charcoal text-sm md:text-base">-</p>
+            </div>
+            <div class="p-6 text-center">
+                <p class="text-gray-400 text-[10px] uppercase tracking-widest mb-2">Facing</p>
+                <p id="stat-facing" class="font-heading font-bold text-dark-charcoal text-sm md:text-base">-</p>
+            </div>
+            <div class="p-6 text-center">
+                <p class="text-gray-400 text-[10px] uppercase tracking-widest mb-2">Status</p>
+                <p id="stat-status" class="font-heading font-bold text-dark-charcoal text-sm md:text-base">-</p>
+            </div>
+        </div>
+        <div class="flex justify-center mt-6">
+            <button id="view-layout-btn"
+                class="hidden items-center gap-2 bg-primary-orange px-6 py-3 font-body text-xs font-bold uppercase tracking-[0.25em] text-white hover:bg-dark-charcoal transition-colors">
+                View Digital Layout
+                <i class="fas fa-arrow-right text-xs"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Digital Layout Modal -->
+    <div id="layout-modal" class="fixed inset-0 z-[200] hidden bg-white flex-col">
+        <header class="flex items-center justify-between gap-3 bg-dark-charcoal px-4 py-3 text-white md:px-6 md:py-4">
+            <div class="min-w-0">
+                <div id="layout-modal-title" class="font-heading text-base md:text-lg font-semibold truncate">
+                </div>
+                <div id="layout-modal-location"
+                    class="text-[11px] uppercase tracking-[0.2em] text-white/60 truncate"></div>
+            </div>
+            <button type="button" id="close-layout-btn" aria-label="Close digital layout"
+                class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+        <div id="layout-zoom-viewport" class="flex-1 overflow-hidden relative bg-gray-100 cursor-grab">
+            <img id="layout-modal-img" data-zoom="1" src="" alt="Digital layout"
+                class="select-none pointer-events-none origin-top-left"
+                style="transform: translate(0px, 0px) scale(1); transition: transform 0.05s linear;" draggable="false">
+            <div
+                class="pointer-events-none absolute inset-x-0 top-3 mx-auto w-fit rounded-full bg-white/90 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-gray-500 shadow">
+                Pinch / scroll to zoom &nbsp;·&nbsp; drag to pan
+            </div>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <section class="max-w-4xl mx-auto px-6 md:px-12 py-16 md:py-20">
+        <p class="text-primary-orange text-xs uppercase tracking-widest font-semibold mb-3" data-aos="fade-up">
+            About This Project</p>
+        <h2 class="font-heading text-2xl md:text-3xl font-normal mb-6" data-aos="fade-up">Project Overview</h2>
+        <p id="detail-description" class="text-gray-500 leading-relaxed text-base" data-aos="fade-up">
+        </p>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-dark-charcoal text-white py-16 md:py-20 px-6 md:px-12">
+        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <h2 class="font-heading text-2xl md:text-4xl font-normal mb-4">Interested in this <em class="italic text-primary-orange">project</em>?</h2>
+            <p class="text-white/60 mb-8">Book a site visit or download the brochure to know more.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="tel:+919371561234"
+                    class="bg-primary-orange text-white px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-white hover:text-dark-charcoal transition-colors duration-300">
+                    <i class="fas fa-phone mr-2"></i>Enquire Now
+                </a>
+                <a id="brochure-link" href="#" target="_blank"
+                    class="hidden border border-white/40 text-white px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-white hover:text-dark-charcoal transition-colors duration-300">
+                    <i class="fas fa-file-pdf mr-2"></i>Download Brochure
+                </a>
+                <a href="index.html#ongoing-projects"
+                    class="border border-white/40 text-white px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-white hover:text-dark-charcoal transition-colors duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section bg-dark-charcoal text-white pt-12 md:pt-16 pb-8 md:pb-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-10 md:mb-14">
+                <div class="col-span-2 lg:col-span-1">
+                    <a href="index.html" class="block mb-5">
+                        <img src="assets/images/logo-white.svg" alt="Soudha Projects Logo"
+                            class="h-12 w-auto max-w-[180px] object-contain">
+                    </a>
+                    <p class="text-white/50 text-sm leading-relaxed">Building Trust, Creating Value, Fulfilling
+                        Dreams</p>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest mb-6 text-white/40">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html#about"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">About Us</a></li>
+                        <li><a href="index.html#ongoing-projects"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Ongoing
+                                Projects</a></li>
+                        <li><a href="index.html#upcoming-projects"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Upcoming
+                                Projects</a></li>
+                        <li><a href="index.html#testimonials"
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Testimonials</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest mb-6 text-white/40">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Premium
+                                Open Plots</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Luxury
+                                Villas</a></li>
+                        <li><a href="#" class="text-white/70 hover:text-primary-orange transition text-sm">Farmlands</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-widest mb-6 text-white/40">Contact</h4>
+                    <ul class="space-y-3 text-white/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-0.5 text-primary-orange flex-shrink-0"></i>
+                            <span>Plot No: 453, Karthikeya Nilayam, Bagath Singh Nagar, Kukatpally, Hyderabad, 500085</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-primary-orange flex-shrink-0"></i>
+                            <a href="tel:+919371561234" class="hover:text-primary-orange transition">+91 93715
+                                61234</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-primary-orange flex-shrink-0"></i>
+                            <a href="mailto:Contact@soudhaprojects.com"
+                                class="hover:text-primary-orange transition break-all">Contact@soudhaprojects.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-xs uppercase tracking-widest">
+                <p>&copy; 2025 Soudha Projects. All Rights Reserved.</p>
+                <p>Kukatpally, Hyderabad, 500085</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919646333344" target="_blank"
+        class="whatsapp-float fixed bottom-5 right-5 md:bottom-8 md:right-8 bg-whatsapp-green rounded-full flex items-center justify-center text-white text-2xl md:text-3xl shadow-2xl hover:scale-110 transition z-50"
+        style="width:52px;height:52px;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>AOS.init({ duration: 800, once: true });</script>
+
+    <!-- Custom JS -->
+    <script src="js/project-detail.js"></script>
+</body>
+
+</html>

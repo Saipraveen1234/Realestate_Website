@@ -57,7 +57,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', auth, (req, res, next) => {
     upload.fields([
         { name: 'image', maxCount: 1 },
-        { name: 'brochure', maxCount: 1 }
+        { name: 'brochure', maxCount: 1 },
+        { name: 'layoutImage', maxCount: 1 }
     ])(req, res, (err) => {
         if (err instanceof multer.MulterError) {
             console.error('Multer error:', err);
@@ -98,6 +99,9 @@ router.post('/', auth, (req, res, next) => {
             if (req.files.brochure) {
                 projectData.brochure = req.files.brochure[0].path; // Cloudinary URL
             }
+            if (req.files.layoutImage) {
+                projectData.layoutImage = req.files.layoutImage[0].path; // Cloudinary URL
+            }
         }
 
         const project = new Project(projectData);
@@ -118,7 +122,8 @@ router.post('/', auth, (req, res, next) => {
 // @access  Private (Admin only)
 router.put('/:id', auth, upload.fields([
     { name: 'image', maxCount: 1 },
-    { name: 'brochure', maxCount: 1 }
+    { name: 'brochure', maxCount: 1 },
+    { name: 'layoutImage', maxCount: 1 }
 ]), async (req, res) => {
     try {
         const { name, size, location, price, facing, status, description } = req.body;
@@ -144,6 +149,9 @@ router.put('/:id', auth, upload.fields([
             }
             if (req.files.brochure) {
                 project.brochure = req.files.brochure[0].path; // Cloudinary URL
+            }
+            if (req.files.layoutImage) {
+                project.layoutImage = req.files.layoutImage[0].path; // Cloudinary URL
             }
         }
 

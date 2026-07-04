@@ -54,56 +54,58 @@ async function fetchCompanyStats() {
 
 // Render project card
 function renderProjectCard(project) {
-  const statusBadge = project.status === 'upcoming'
-    ? '<span class="project-badge badge-launching">Launching Soon</span>'
+  const statusText = project.status === 'upcoming'
+    ? 'Launching Soon'
     : project.status === 'completed'
-      ? '<span class="project-badge badge-completed">Completed</span>'
-      : '';
+      ? 'Completed'
+      : 'Ongoing';
 
   const brochureBtn = project.brochure
-    ? `<a href="${project.brochure}" target="_blank"
-          class="card-action-btn border-white/50 text-white hover:bg-white hover:text-dark-charcoal">
-          <i class="fas fa-file-pdf"></i>Brochure
+    ? `<a href="${project.brochure}" target="_blank" aria-label="Download brochure"
+          class="card-icon-btn">
+          <i class="fas fa-file-pdf"></i>
        </a>`
     : '';
 
   return `
-    <div class="project-card-overlay group" data-aos="fade-up">
+    <div class="project-card-overlay" data-aos="fade-up">
       <!-- Image wrap -->
       <div class="card-image-wrap">
-        <div class="card-top-border"></div>
+        <a href="project-detail.html?id=${project._id}" aria-label="View ${project.name} details" class="absolute inset-0 z-10"></a>
         <img src="${project.image || 'assets/images/project-placeholder.jpg'}"
              alt="${project.name}" loading="lazy">
-        ${statusBadge}
-        <!-- Hover overlay -->
-        <div class="card-hover-overlay">
-          <div class="text-white">
-            <p class="text-primary-orange text-[10px] uppercase tracking-[0.25em] mb-1.5">${project.location}</p>
-            <h3 class="font-heading text-xl font-bold mb-2 leading-tight">${project.name}</h3>
-            <p class="text-white/55 text-xs uppercase tracking-wider mb-5">
-              ${project.size}&nbsp;&nbsp;·&nbsp;&nbsp;${project.price}&nbsp;&nbsp;·&nbsp;&nbsp;${project.facing} Facing
-            </p>
-            <div class="flex flex-wrap gap-2">
-              ${brochureBtn}
-              <a href="tel:+919999999999"
-                 class="card-action-btn bg-primary-orange border-primary-orange text-white hover:bg-white hover:border-white hover:text-dark-charcoal">
-                <i class="fas fa-phone"></i>Enquire
-              </a>
-            </div>
+        <span class="project-badge badge-${project.status}">${statusText}</span>
+        <span class="card-price-tag">${project.price}</span>
+      </div>
+
+      <!-- Info block: always visible, no hover-only content -->
+      <div class="card-info">
+        <a href="project-detail.html?id=${project._id}" class="block">
+          <h3 class="font-heading text-lg font-normal text-dark-charcoal leading-tight mb-1.5">${project.name}</h3>
+          <p class="text-gray-400 text-xs flex items-center gap-1.5 mb-4">
+            <i class="fas fa-map-marker-alt text-primary-orange text-[10px]"></i>${project.location}
+          </p>
+        </a>
+
+        <div class="card-meta-row">
+          <div>
+            <p class="card-meta-label">Size</p>
+            <p class="card-meta-value">${project.size}</p>
+          </div>
+          <div>
+            <p class="card-meta-label">Facing</p>
+            <p class="card-meta-value">${project.facing}</p>
           </div>
         </div>
-      </div>
-      <!-- Caption strip -->
-      <div class="card-caption">
-        <div class="flex justify-between items-start gap-4">
-          <div class="min-w-0">
-            <h3 class="font-heading text-base font-bold text-dark-charcoal truncate">${project.name}</h3>
-            <p class="text-primary-orange text-[10px] font-semibold tracking-[0.15em] uppercase mt-1">${project.location}</p>
-          </div>
-          <div class="text-right flex-shrink-0">
-            <p class="text-dark-charcoal font-bold text-sm">${project.price}</p>
-            <p class="text-gray-400 text-[10px] uppercase tracking-wider mt-0.5">${project.size}</p>
-          </div>
+
+        <div class="card-actions">
+          <a href="project-detail.html?id=${project._id}" class="card-btn-primary">
+            View Details <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="tel:+919371561234" aria-label="Call to enquire" class="card-icon-btn">
+            <i class="fas fa-phone"></i>
+          </a>
+          ${brochureBtn}
         </div>
       </div>
     </div>
@@ -137,6 +139,16 @@ function renderTestimonialCard(testimonial) {
   `;
 }
 
+// Empty-state placeholder card
+function renderEmptyState(icon, message) {
+  return `
+    <div class="col-span-full empty-state-card" data-aos="fade-up">
+      <div class="empty-state-icon"><i class="fas ${icon}"></i></div>
+      <p class="text-gray-500 text-sm">${message}</p>
+    </div>
+  `;
+}
+
 // Load and display projects
 async function loadProjects() {
   const projects = await fetchProjects();
@@ -150,7 +162,7 @@ async function loadProjects() {
   if (ongoingProjects.length > 0) {
     ongoingGrid.innerHTML = ongoingProjects.map(renderProjectCard).join('');
   } else {
-    ongoingGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No ongoing projects at the moment.</p></div>';
+    ongoingGrid.innerHTML = renderEmptyState('fa-building', 'No ongoing projects at the moment. Check back soon.');
   }
 
   // Render upcoming projects
@@ -158,7 +170,7 @@ async function loadProjects() {
   if (upcomingProjects.length > 0) {
     upcomingGrid.innerHTML = upcomingProjects.map(renderProjectCard).join('');
   } else {
-    upcomingGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No upcoming projects at the moment.</p></div>';
+    upcomingGrid.innerHTML = renderEmptyState('fa-calendar-alt', 'Be the first to know — upcoming projects launch soon.');
   }
 
   // Render completed projects
@@ -166,7 +178,7 @@ async function loadProjects() {
   if (completedProjects.length > 0) {
     completedGrid.innerHTML = completedProjects.map(renderProjectCard).join('');
   } else {
-    completedGrid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-gray-500">No completed projects to display.</p></div>';
+    completedGrid.innerHTML = renderEmptyState('fa-flag-checkered', 'No completed projects to display yet.');
   }
 
   // Refresh AOS animations
@@ -256,6 +268,14 @@ async function loadCompanyStats() {
     plotsEl.setAttribute('data-target', stats.plotsSold || 0);
     plotsEl.innerText = '0';
   }
+
+  // Hero quick-stats bar (static, no scroll-triggered animation)
+  const heroExp = document.getElementById('hero-stat-experience');
+  const heroClients = document.getElementById('hero-stat-clients');
+  const heroPlots = document.getElementById('hero-stat-plots');
+  if (heroExp) heroExp.innerText = stats.yearsOfExperience || 0;
+  if (heroClients) heroClients.innerText = stats.happyClients || 0;
+  if (heroPlots) heroPlots.innerText = stats.plotsSold || 0;
 }
 
 // Load and display testimonials

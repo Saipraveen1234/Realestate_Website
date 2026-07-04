@@ -30,6 +30,10 @@ const projectSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    layoutImage: {
+        type: String,
+        default: ''
+    },
     brochure: {
         type: String,
         default: ''
