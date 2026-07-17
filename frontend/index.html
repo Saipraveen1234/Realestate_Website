@@ -50,6 +50,30 @@
 
 <body class="font-body text-dark-charcoal">
 
+    <!-- Preloader — hides the page until fonts, images, and hero content are ready -->
+    <div id="preloader" class="fixed inset-0 z-[999] bg-dark-charcoal overflow-hidden flex items-center justify-center">
+        <!-- Ambient glow -->
+        <div class="preloader-glow"></div>
+
+        <div class="relative z-10 flex flex-col items-center gap-8 px-6">
+            <div class="preloader-logo-wrap">
+                <img src="assets/images/logo.svg" alt="Soudha Projects" class="h-16 md:h-20 w-auto object-contain">
+            </div>
+
+            <p class="preloader-tagline font-body text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/40">
+                Building Trust &middot; Creating Value
+            </p>
+
+            <div class="preloader-progress-track">
+                <div id="preloader-progress-fill" class="preloader-progress-fill"></div>
+            </div>
+
+            <p class="font-heading text-white/70 text-sm tracking-widest">
+                <span id="preloader-percent">0</span><span class="text-primary-orange">%</span>
+            </p>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/0">
         <div class="px-6 md:px-12 py-5 flex justify-between items-center max-w-7xl mx-auto">
@@ -365,10 +389,11 @@
             </div>
 
             <!-- SnapWidget -->
-            <div class="instagram-embed-wrap" data-aos="fade-up">
-                <iframe src="https://snapwidget.com/embed/1127234"
-                    class="snapwidget-widget instagram-embed-iframe" allowtransparency="true"
-                    frameborder="0" scrolling="no" title="Posts from Instagram"></iframe>
+            <div class="instagram-embed-wrap flex justify-center" data-aos="fade-up">
+                <iframe src="https://snapwidget.com/embed/1127237"
+                    class="snapwidget-widget" allowtransparency="true" frameborder="0" scrolling="no"
+                    style="border:none; overflow:hidden; width:960px; height:529px; max-width:100%;"
+                    title="Posts from Instagram"></iframe>
             </div>
         </div>
     </section>

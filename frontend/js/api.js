@@ -332,10 +332,15 @@ function initTestimonialsSwiper() {
   });
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  loadHeroSlides();
-  loadCompanyStats();
-  loadProjects();
-  loadTestimonials();
+// Initialize on page load — resolves once all dynamic content has loaded,
+// so the preloader (see main.js) knows when it's safe to reveal the page.
+window.contentReady = new Promise((resolve) => {
+  document.addEventListener('DOMContentLoaded', () => {
+    Promise.all([
+      loadHeroSlides(),
+      loadCompanyStats(),
+      loadProjects(),
+      loadTestimonials()
+    ]).then(resolve).catch(resolve);
+  });
 });

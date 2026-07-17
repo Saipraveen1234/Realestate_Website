@@ -5,6 +5,54 @@ AOS.init({
     offset: 100,
 });
 
+// Preloader — animates a percentage counter while waiting for dynamic content
+// (api.js) and the window to fully load (fonts, images, scripts), then swipes
+// up to reveal the page. A safety timeout prevents it from hanging forever.
+(function () {
+    const preloader = document.getElementById('preloader');
+    const fill = document.getElementById('preloader-progress-fill');
+    const percentEl = document.getElementById('preloader-percent');
+    if (!preloader) return;
+
+    // Ease progress toward 90% while we wait — never touches 100% on its own,
+    // so the bar always looks "in progress" until real content is ready.
+    let displayed = 0;
+    let target = 12;
+    let rafId;
+
+    function tick() {
+        displayed += (target - displayed) * 0.08;
+        const shown = Math.min(90, Math.round(displayed));
+        if (fill) fill.style.width = shown + '%';
+        if (percentEl) percentEl.textContent = shown;
+        rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+    setTimeout(() => { target = 45; }, 200);
+    setTimeout(() => { target = 75; }, 700);
+
+    const windowLoaded = new Promise((resolve) => {
+        if (document.readyState === 'complete') resolve();
+        else window.addEventListener('load', resolve);
+    });
+    const safetyTimeout = new Promise((resolve) => setTimeout(resolve, 5000));
+    const contentReady = window.contentReady || Promise.resolve();
+
+    Promise.race([
+        Promise.all([windowLoaded, contentReady]),
+        safetyTimeout
+    ]).then(() => {
+        cancelAnimationFrame(rafId);
+        if (fill) fill.style.width = '100%';
+        if (percentEl) percentEl.textContent = '100';
+
+        setTimeout(() => {
+            preloader.classList.add('preloader-hidden');
+            setTimeout(() => preloader.remove(), 900);
+        }, 350);
+    });
+})();
+
 // Initialize Hero Swiper
 // Note: This is now handled in api.js after fetching dynamic slides
 /* 
