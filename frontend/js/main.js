@@ -173,12 +173,21 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                animateCounter(counter, target, 2000);
+            const target = entry.target;
+            observer.unobserve(target);
+
+            // The real values arrive via an async /api/stats fetch (see api.js).
+            // If this section is already in view on load (e.g. browser scroll
+            // restoration), don't animate off the default data-target="0" —
+            // wait for the fetch to actually finish first.
+            const contentReady = window.contentReady || Promise.resolve();
+            contentReady.then(() => {
+                const counters = target.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const value = parseInt(counter.getAttribute('data-target'));
+                    animateCounter(counter, value, 2000);
+                });
             });
-            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
