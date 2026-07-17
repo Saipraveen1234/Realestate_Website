@@ -151,10 +151,13 @@ function renderEmptyState(icon, message) {
 
 // Load and display projects — single grid, filterable by status tabs
 async function loadProjects() {
-  const projects = await fetchProjects();
+  const allProjects = await fetchProjects();
+
+  // Completed projects are not shown on the site — only ongoing and upcoming.
+  const projects = allProjects.filter(p => p.status !== 'completed');
   const grid = document.getElementById('projects-grid');
 
-  const statusOrder = { ongoing: 0, completed: 1, upcoming: 2 };
+  const statusOrder = { ongoing: 0, upcoming: 1 };
   projects.sort((a, b) => (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99));
 
   if (projects.length > 0) {
@@ -167,7 +170,7 @@ async function loadProjects() {
   setupProjectFilters();
 }
 
-// Wire up the All / Ongoing / Upcoming / Completed filter tabs
+// Wire up the All / Ongoing / Upcoming filter tabs
 function setupProjectFilters() {
   const buttons = document.querySelectorAll('.project-filter-btn');
   const grid = document.getElementById('projects-grid');
