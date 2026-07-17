@@ -22,8 +22,8 @@
                         'dark-charcoal': '#1a202c',
                     },
                     fontFamily: {
-                        'heading': ['Cinzel', 'serif'],
-                        'body': ['Outfit', 'sans-serif'],
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Poppins', 'sans-serif'],
                     }
                 }
             }
@@ -32,7 +32,7 @@
 
     <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome -->
@@ -69,7 +69,6 @@
             <div class="hidden md:flex items-center gap-10">
                 <a href="#about" class="nav-desktop-link">About</a>
                 <a href="#ongoing-projects" class="nav-desktop-link">Projects</a>
-                <a href="#testimonials" class="nav-desktop-link">Testimonials</a>
                 <a href="#contact" class="nav-desktop-link">Contact</a>
             </div>
 
@@ -107,10 +106,7 @@
                 <!-- Links -->
                 <div class="flex-1 flex flex-col justify-center space-y-8">
                     <a href="#about" class="nav-link menu-item-link">About Us</a>
-                    <a href="#ongoing-projects" class="nav-link menu-item-link">Ongoing Projects</a>
-                    <a href="#upcoming-projects" class="nav-link menu-item-link">Upcoming Projects</a>
-                    <a href="#completed-projects" class="nav-link menu-item-link">Completed Projects</a>
-                    <a href="#testimonials" class="nav-link menu-item-link">Testimonials</a>
+                    <a href="#ongoing-projects" class="nav-link menu-item-link">Projects</a>
                     <a href="#contact" class="nav-link menu-item-link">Contact</a>
                 </div>
 
@@ -140,9 +136,7 @@
                     <div class="absolute inset-0 opacity-15"
                         style="background: radial-gradient(ellipse at 50% 40%, #31a8e1 0%, transparent 60%);"></div>
                     <div class="relative z-10 text-white max-w-3xl mx-auto flex flex-col items-center">
-                        <p class="font-body tracking-[0.4em] uppercase text-xs text-white/45 mb-8"
-                            data-aos="fade-down">West Hyderabad's Premier Developer</p>
-                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-8 leading-[1.1] tracking-tight"
+                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1] tracking-tight"
                             data-aos="fade-up">
                             Welcome to<br><span class="text-primary-orange italic">Soudha Projects</span>
                         </h1>
@@ -164,9 +158,7 @@
                     <div class="absolute inset-0 opacity-15"
                         style="background: radial-gradient(ellipse at 50% 40%, #31a8e1 0%, transparent 55%);"></div>
                     <div class="relative z-10 text-white max-w-3xl mx-auto flex flex-col items-center">
-                        <p class="font-body tracking-[0.4em] uppercase text-xs text-white/45 mb-8"
-                            data-aos="fade-down">Premium Real Estate</p>
-                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-8 leading-[1.1] tracking-tight"
+                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1] tracking-tight"
                             data-aos="fade-up">
                             Premium Properties,<br><span class="text-primary-orange italic">Prime Locations</span>
                         </h1>
@@ -188,9 +180,7 @@
                     <div class="absolute inset-0 opacity-15"
                         style="background: radial-gradient(ellipse at 50% 40%, #31a8e1 0%, transparent 60%);"></div>
                     <div class="relative z-10 text-white max-w-3xl mx-auto flex flex-col items-center">
-                        <p class="font-body tracking-[0.4em] uppercase text-xs text-white/45 mb-8"
-                            data-aos="fade-down">High Growth Region</p>
-                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-8 leading-[1.1] tracking-tight"
+                        <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1] tracking-tight"
                             data-aos="fade-up">
                             Invest in<br><span class="text-primary-orange italic">West Hyderabad</span>
                         </h1>
@@ -200,7 +190,7 @@
                             <div class="h-px w-12 bg-white/25"></div>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-8 sm:gap-12" data-aos="fade-up" data-aos-delay="300">
-                            <a href="#upcoming-projects" class="hero-cta">Upcoming Projects</a>
+                            <a href="#ongoing-projects" class="hero-cta">View Projects</a>
                             <a href="#contact" class="hero-cta-outline">Get In Touch</a>
                         </div>
                     </div>
@@ -208,8 +198,8 @@
             </div>
 
             <!-- Navigation -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"><i class="fas fa-chevron-right"></i></div>
+            <div class="swiper-button-prev"><i class="fas fa-chevron-left"></i></div>
             <div class="swiper-pagination"></div>
         </div>
 
@@ -221,104 +211,36 @@
             </a>
         </div>
 
-        <!-- Hero Quick-Stats Bar -->
-        <div class="hidden md:block absolute left-0 right-0 z-20 bottom-0 pb-8">
-            <div class="max-w-6xl mx-auto px-8">
-                <div class="hero-stats-bar grid grid-cols-3 divide-x divide-white/10">
-                    <div class="px-8 py-6 text-center">
-                        <p class="font-heading text-2xl lg:text-3xl font-bold text-white"><span class="counter" data-target="0" id="hero-stat-experience">0</span>+</p>
-                        <p class="text-[10px] uppercase tracking-[0.25em] text-white/45 mt-1">Years Experience</p>
-                    </div>
-                    <div class="px-8 py-6 text-center">
-                        <p class="font-heading text-2xl lg:text-3xl font-bold text-white"><span class="counter" data-target="0" id="hero-stat-clients">0</span>+</p>
-                        <p class="text-[10px] uppercase tracking-[0.25em] text-white/45 mt-1">Happy Clients</p>
-                    </div>
-                    <div class="px-8 py-6 text-center">
-                        <p class="font-heading text-2xl lg:text-3xl font-bold text-white"><span class="counter" data-target="0" id="hero-stat-plots">0</span>+</p>
-                        <p class="text-[10px] uppercase tracking-[0.25em] text-white/45 mt-1">Plots Sold</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="bg-white py-14 md:py-24 lg:py-28">
         <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-stretch">
 
-            <!-- Left: Photo Visual Panel -->
-            <div class="lg:col-span-5 relative overflow-hidden min-h-[420px] lg:min-h-[560px]"
+            <!-- Left: Photo -->
+            <div class="lg:col-span-5 relative overflow-hidden min-h-[360px] lg:min-h-[480px]"
                 data-aos="fade-right">
                 <img src="https://res.cloudinary.com/dw4tayl2x/image/upload/v1783171065/real-estate-website/l57ch7hkpfevfblfxdgz.jpg"
                     alt="Soudha Projects development" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0"
-                    style="background: linear-gradient(200deg, rgba(26,32,44,0.1) 0%, rgba(26,32,44,0.7) 100%);"></div>
-
-                <!-- Logo badge, top-left -->
-                <div class="absolute top-6 left-6 z-10 bg-white px-5 py-3">
-                    <img src="assets/images/logo.svg" alt="Soudha Projects Logo" class="h-9 w-auto max-w-[150px] object-contain">
-                </div>
-
-                <!-- Floating stat card, bottom -->
-                <div class="absolute bottom-6 left-6 right-6 z-10 bg-white p-6 flex items-center gap-5">
-                    <div class="w-12 h-12 border border-primary-orange/40 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-award text-primary-orange text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="font-heading text-lg font-bold text-dark-charcoal leading-tight">Building Trust
-                            Since Day One</p>
-                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1.5">RERA Approved &middot; DTCP
-                            Sanctioned &middot; Vastu Compliant</p>
-                    </div>
-                </div>
             </div>
 
-            <!-- Right: Copy + highlights + CTA -->
+            <!-- Right: Copy + CTA -->
             <div class="lg:col-span-7 px-6 md:px-10 lg:px-0 py-12 lg:py-0 flex items-center" data-aos="fade-left">
                 <div class="w-full">
-                    <p class="section-eyebrow">The Soudha Story</p>
-                    <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-dark-charcoal leading-tight mb-6">
-                        A home is more than a structure — it is a <em class="text-primary-orange italic">promise kept.</em>
+                    <p class="section-eyebrow">About Us</p>
+                    <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark-charcoal leading-tight mb-6">
+                        Turning property <em class="text-primary-orange italic">aspirations</em> into lasting investments.
                     </h2>
-                    <p class="font-body text-base text-gray-500 leading-relaxed mb-4">
-                        Soudha Projects is a distinguished real estate development company dedicated to offering premium
-                        properties in West Hyderabad's most sought-after locations. With a commitment to transparency
-                        and
-                        excellence, we specialize in Open Plots, Villas, and Farm Lands that promise high appreciation.
+                    <p class="font-body text-base text-gray-500 leading-relaxed mb-10">
+                        Soudha Projects is a trusted real estate company committed to helping people find the right
+                        property with confidence. From premium residential plots and modern flats to villas,
+                        commercial spaces, and a wide range of real estate investments, we offer solutions that cater
+                        to every need and budget. Built on the core values of transparency, trust, and
+                        customer-first service, we ensure every transaction is honest, seamless, and reliable. With a
+                        focus on quality developments, legal clarity, and long-term value, Soudha Projects is
+                        dedicated to turning property aspirations into lasting investments while building
+                        relationships that stand on trust.
                     </p>
-                    <p class="font-body text-sm text-gray-400 leading-relaxed mb-10">
-                        Our mission is to empower clients with secure and profitable investment opportunities.
-                        At Soudha Projects, we don't just sell plots — we build lasting relationships rooted in trust
-                        and quality.
-                    </p>
-
-                    <!-- Highlights list -->
-                    <div class="space-y-0 mb-10">
-                        <div class="about-highlight">
-                            <div class="about-highlight-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div>
-                                <p class="text-sm font-semibold text-dark-charcoal">Trusted Developer</p>
-                                <p class="text-xs text-gray-400 mt-0.5">Transparent dealings with documented approvals
-                                </p>
-                            </div>
-                        </div>
-                        <div class="about-highlight">
-                            <div class="about-highlight-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div>
-                                <p class="text-sm font-semibold text-dark-charcoal">Prime Locations</p>
-                                <p class="text-xs text-gray-400 mt-0.5">Strategically chosen for maximum appreciation
-                                </p>
-                            </div>
-                        </div>
-                        <div class="about-highlight">
-                            <div class="about-highlight-icon"><i class="fas fa-handshake"></i></div>
-                            <div>
-                                <p class="text-sm font-semibold text-dark-charcoal">End-to-End Support</p>
-                                <p class="text-xs text-gray-400 mt-0.5">From site visit to registration, we guide you
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
                     <a href="#ongoing-projects"
                         class="group inline-flex items-center gap-4 text-dark-charcoal hover:text-primary-orange transition-colors duration-300">
@@ -336,7 +258,7 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="section-header-center mb-14 md:mb-20">
                 <p class="section-eyebrow" style="color:#ef7d50;">Our Track Record</p>
-                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal">Numbers That <em class="italic text-primary-orange">Speak</em></h2>
+                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold">Numbers That <em class="italic text-primary-orange">Speak</em></h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 border-t border-white/10">
                 <!-- Stat 1 -->
@@ -376,16 +298,24 @@
         </div>
     </section>
 
-    <!-- Ongoing Projects Section -->
+    <!-- Projects Section -->
     <section id="ongoing-projects" class="py-16 md:py-28 lg:py-36 bg-off-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="section-header-center mb-14 md:mb-20" data-aos="fade-up">
-                <p class="section-eyebrow">Active Developments</p>
-                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal text-dark-charcoal">Ongoing <em class="italic text-primary-orange">Projects</em></h2>
-                <p class="section-sub">Explore our premium plots ready for investment, thoughtfully planned for lasting value.</p>
+            <div class="section-header-center mb-10 md:mb-14" data-aos="fade-up">
+                <p class="section-eyebrow">Our Developments</p>
+                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-charcoal">Explore Our <em class="italic text-primary-orange">Projects</em></h2>
+                <p class="section-sub">Premium plots, thoughtfully planned developments, and communities delivered with pride.</p>
             </div>
 
-            <div id="ongoing-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+            <!-- Filter Tabs -->
+            <div class="project-filter-tabs" data-aos="fade-up">
+                <button class="project-filter-btn active" data-filter="all">All Projects</button>
+                <button class="project-filter-btn" data-filter="ongoing">Ongoing</button>
+                <button class="project-filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="project-filter-btn" data-filter="completed">Completed</button>
+            </div>
+
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
                 <!-- Projects will be loaded dynamically -->
                 <div class="text-center py-12 col-span-full">
                     <p class="text-gray-500">Loading projects...</p>
@@ -394,54 +324,18 @@
         </div>
     </section>
 
-    <!-- Upcoming Projects Section -->
-    <section id="upcoming-projects" class="py-16 md:py-28 lg:py-36 bg-white">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="section-header-center mb-14 md:mb-20" data-aos="fade-up">
-                <p class="section-eyebrow">Coming Soon</p>
-                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal text-dark-charcoal">Upcoming <em class="italic text-primary-orange">Projects</em></h2>
-                <p class="section-sub">Be the first to know — reserve your place in our next flagship development.</p>
-            </div>
-
-            <div id="upcoming-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
-                <!-- Projects will be loaded dynamically -->
-                <div class="text-center py-12 col-span-full">
-                    <p class="text-gray-500">Loading projects...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Completed Projects Section -->
-    <section id="completed-projects" class="py-16 md:py-28 lg:py-36 bg-off-white">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="section-header-center mb-14 md:mb-20" data-aos="fade-up">
-                <p class="section-eyebrow">Successfully Delivered</p>
-                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal text-dark-charcoal">Completed <em class="italic text-primary-orange">Projects</em></h2>
-                <p class="section-sub">Handed over with pride — communities we're proud to have built and delivered.</p>
-            </div>
-
-            <div id="completed-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
-                <!-- Projects will be loaded dynamically -->
-                <div class="text-center py-12 col-span-full">
-                    <p class="text-gray-500">Loading projects...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
+    <!-- Testimonials Section — hidden until we have real client testimonials -->
+    <!--
     <section id="testimonials" class="py-16 md:py-28 lg:py-36 bg-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="section-header-center mb-14 md:mb-20" data-aos="fade-up">
                 <p class="section-eyebrow">Client Stories</p>
-                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal text-dark-charcoal">What Our Clients <em class="italic text-primary-orange">Say</em></h2>
+                <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-charcoal">What Our Clients <em class="italic text-primary-orange">Say</em></h2>
                 <p class="section-sub">Trusted by hundreds of happy families across West Hyderabad.</p>
             </div>
 
             <div class="swiper testimonials-swiper">
                 <div class="swiper-wrapper" id="testimonials-container">
-                    <!-- Testimonials will be loaded dynamically -->
                     <div class="swiper-slide">
                         <div class="text-center py-12">
                             <p class="text-gray-500">Loading testimonials...</p>
@@ -455,6 +349,7 @@
             </div>
         </div>
     </section>
+    -->
 
     <!-- Contact Section -->
     <section id="contact" class="py-14 md:py-24 lg:py-32 bg-off-white">
@@ -463,7 +358,7 @@
                 <!-- Left: Info -->
                 <div data-aos="fade-right">
                     <p class="section-eyebrow">Get In Touch</p>
-                    <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-normal text-dark-charcoal leading-tight mb-8 md:mb-14">
+                    <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-charcoal leading-tight mb-8 md:mb-14">
                         Begin your<br><em class="italic text-primary-orange">investment.</em>
                     </h2>
                     <div class="space-y-8">
@@ -571,13 +466,8 @@
                         <li><a href="#about" class="text-white/70 hover:text-primary-orange transition text-sm">About
                                 Us</a></li>
                         <li><a href="#ongoing-projects"
-                                class="text-white/70 hover:text-primary-orange transition text-sm">Ongoing Projects</a>
+                                class="text-white/70 hover:text-primary-orange transition text-sm">Projects</a>
                         </li>
-                        <li><a href="#upcoming-projects"
-                                class="text-white/70 hover:text-primary-orange transition text-sm">Upcoming Projects</a>
-                        </li>
-                        <li><a href="#testimonials"
-                                class="text-white/70 hover:text-primary-orange transition text-sm">Testimonials</a></li>
                     </ul>
                 </div>
 
@@ -631,7 +521,7 @@
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919646333344" target="_blank"
+    <a href="https://wa.me/919371561234" target="_blank"
         class="whatsapp-float fixed bottom-5 right-5 md:bottom-8 md:right-8 w-13 h-13 md:w-14 md:h-14 bg-whatsapp-green rounded-full flex items-center justify-center text-white text-2xl md:text-3xl shadow-2xl hover:scale-110 transition z-50"
         style="width:52px;height:52px;">
         <i class="fab fa-whatsapp"></i>

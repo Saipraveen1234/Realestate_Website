@@ -68,7 +68,7 @@ function renderProjectCard(project) {
     : '';
 
   return `
-    <div class="project-card-overlay" data-aos="fade-up">
+    <div class="project-card-overlay" data-status="${project.status}" data-aos="fade-up">
       <!-- Image wrap -->
       <div class="card-image-wrap">
         <a href="project-detail.html?id=${project._id}" aria-label="View ${project.name} details" class="absolute inset-0 z-10"></a>
@@ -149,40 +149,45 @@ function renderEmptyState(icon, message) {
   `;
 }
 
-// Load and display projects
+// Load and display projects — single grid, filterable by status tabs
 async function loadProjects() {
   const projects = await fetchProjects();
+  const grid = document.getElementById('projects-grid');
 
-  const ongoingProjects = projects.filter(p => p.status === 'ongoing');
-  const upcomingProjects = projects.filter(p => p.status === 'upcoming');
-  const completedProjects = projects.filter(p => p.status === 'completed');
+  const statusOrder = { ongoing: 0, completed: 1, upcoming: 2 };
+  projects.sort((a, b) => (statusOrder[a.status] ?? 99) - (statusOrder[b.status] ?? 99));
 
-  // Render ongoing projects
-  const ongoingGrid = document.getElementById('ongoing-projects-grid');
-  if (ongoingProjects.length > 0) {
-    ongoingGrid.innerHTML = ongoingProjects.map(renderProjectCard).join('');
+  if (projects.length > 0) {
+    grid.innerHTML = projects.map(renderProjectCard).join('');
   } else {
-    ongoingGrid.innerHTML = renderEmptyState('fa-building', 'No ongoing projects at the moment. Check back soon.');
+    grid.innerHTML = renderEmptyState('fa-building', 'No projects to display at the moment. Check back soon.');
   }
 
-  // Render upcoming projects
-  const upcomingGrid = document.getElementById('upcoming-projects-grid');
-  if (upcomingProjects.length > 0) {
-    upcomingGrid.innerHTML = upcomingProjects.map(renderProjectCard).join('');
-  } else {
-    upcomingGrid.innerHTML = renderEmptyState('fa-calendar-alt', 'Be the first to know — upcoming projects launch soon.');
-  }
-
-  // Render completed projects
-  const completedGrid = document.getElementById('completed-projects-grid');
-  if (completedProjects.length > 0) {
-    completedGrid.innerHTML = completedProjects.map(renderProjectCard).join('');
-  } else {
-    completedGrid.innerHTML = renderEmptyState('fa-flag-checkered', 'No completed projects to display yet.');
-  }
-
-  // Refresh AOS animations
   AOS.refresh();
+  setupProjectFilters();
+}
+
+// Wire up the All / Ongoing / Upcoming / Completed filter tabs
+function setupProjectFilters() {
+  const buttons = document.querySelectorAll('.project-filter-btn');
+  const grid = document.getElementById('projects-grid');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+      const cards = grid.querySelectorAll('.project-card-overlay');
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.getAttribute('data-status') === filter;
+        card.setAttribute('data-hidden', match ? 'false' : 'true');
+      });
+
+      AOS.refresh();
+    });
+  });
 }
 
 // Render hero slide
@@ -192,7 +197,6 @@ function renderHeroSlide(slide) {
         <div class="absolute inset-0 z-10" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.2) 100%);"></div>
         <img src="${slide.image}" class="absolute inset-0 w-full h-full object-cover z-0" alt="${slide.title}" loading="lazy">
         <div class="relative z-20 text-white max-w-3xl">
-            <p class="font-body tracking-[0.35em] uppercase text-xs text-white/50 mb-6" data-aos="fade-down">Soudha Projects</p>
             <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-aos="fade-up">
                 ${slide.title}
             </h1>
