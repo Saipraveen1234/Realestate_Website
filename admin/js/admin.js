@@ -1,6 +1,41 @@
 // API Configuration
 const API_BASE_URL = '/api';
 
+// Cloudinary — files upload directly from the browser to avoid the 4.5MB
+// request body limit on Vercel serverless functions.
+const CLOUDINARY_CLOUD_NAME = 'dw4tayl2x';
+const CLOUDINARY_UPLOAD_PRESET = 'soudha_unsigned';
+
+async function uploadToCloudinary(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`, {
+        method: 'POST',
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error('Image upload failed. Please try again.');
+    }
+
+    const data = await response.json();
+    return data.secure_url;
+}
+
+// Safely read an error message from a fetch response, whether it's JSON
+// (our API) or plain text (e.g. Vercel's "Request Entity Too Large" page).
+async function readErrorMessage(response) {
+    const text = await response.text();
+    try {
+        const json = JSON.parse(text);
+        return json.message || text;
+    } catch {
+        return text.slice(0, 200) || `Request failed (${response.status})`;
+    }
+}
+
 // Check authentication
 function checkAuth() {
     const token = localStorage.getItem('token');
@@ -269,31 +304,38 @@ async function deleteTestimonial(id) {
 document.getElementById('project-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
     const id = document.getElementById('project-id').value;
-
-    formData.append('name', document.getElementById('project-name').value);
-    formData.append('size', document.getElementById('project-size').value);
-    formData.append('location', document.getElementById('project-location').value);
-    formData.append('price', document.getElementById('project-price').value);
-    formData.append('facing', document.getElementById('project-facing').value);
-    formData.append('status', document.getElementById('project-status').value);
-    formData.append('description', document.getElementById('project-description').value);
-
     const imageFile = document.getElementById('project-image').files[0];
-    if (imageFile) formData.append('image', imageFile);
-
     const brochureFile = document.getElementById('project-brochure').files[0];
-    if (brochureFile) formData.append('brochure', brochureFile);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
     try {
+        const payload = {
+            name: document.getElementById('project-name').value,
+            size: document.getElementById('project-size').value,
+            location: document.getElementById('project-location').value,
+            price: document.getElementById('project-price').value,
+            facing: document.getElementById('project-facing').value,
+            status: document.getElementById('project-status').value,
+            description: document.getElementById('project-description').value
+        };
+
+        if (imageFile || brochureFile) {
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Uploading files...'; }
+        }
+        if (imageFile) payload.image = await uploadToCloudinary(imageFile);
+        if (brochureFile) payload.brochure = await uploadToCloudinary(brochureFile);
+
+        if (submitBtn) submitBtn.textContent = 'Saving...';
+
         const url = id ? `${API_BASE_URL}/projects/${id}` : `${API_BASE_URL}/projects`;
         const method = id ? 'PUT' : 'POST';
 
         const response = await fetch(url, {
             method,
-            headers: getAuthHeaders(),
-            body: formData
+            headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
 
         if (response.ok) {
@@ -302,36 +344,48 @@ document.getElementById('project-form').addEventListener('submit', async (e) => 
             loadStats();
             alert(id ? 'Project updated successfully' : 'Project added successfully');
         } else {
-            const error = await response.json();
-            alert('Error: ' + (error.message || 'Failed to save project'));
+            alert('Error: ' + await readErrorMessage(response));
         }
     } catch (error) {
         console.error('Error saving project:', error);
-        alert('Error saving project');
+        alert('Error saving project: ' + error.message);
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     }
 });
 
 document.getElementById('testimonial-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
     const id = document.getElementById('testimonial-id').value;
-
-    formData.append('name', document.getElementById('testimonial-name').value);
-    formData.append('rating', document.getElementById('testimonial-rating').value);
-    formData.append('testimonial', document.getElementById('testimonial-text').value);
-
     const photoFile = document.getElementById('testimonial-photo').files[0];
-    if (photoFile) formData.append('photo', photoFile);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
     try {
+        const payload = {
+            name: document.getElementById('testimonial-name').value,
+            rating: document.getElementById('testimonial-rating').value,
+            testimonial: document.getElementById('testimonial-text').value
+        };
+
+        if (photoFile) {
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Uploading photo...'; }
+            payload.photo = await uploadToCloudinary(photoFile);
+        }
+
+        if (submitBtn) submitBtn.textContent = 'Saving...';
+
         const url = id ? `${API_BASE_URL}/testimonials/${id}` : `${API_BASE_URL}/testimonials`;
         const method = id ? 'PUT' : 'POST';
 
         const response = await fetch(url, {
             method,
-            headers: getAuthHeaders(),
-            body: formData
+            headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
 
         if (response.ok) {
@@ -340,12 +394,16 @@ document.getElementById('testimonial-form').addEventListener('submit', async (e)
             loadStats();
             alert(id ? 'Testimonial updated successfully' : 'Testimonial added successfully');
         } else {
-            const error = await response.json();
-            alert('Error: ' + (error.message || 'Failed to save testimonial'));
+            alert('Error: ' + await readErrorMessage(response));
         }
     } catch (error) {
         console.error('Error saving testimonial:', error);
-        alert('Error saving testimonial');
+        alert('Error saving testimonial: ' + error.message);
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     }
 });
 
@@ -459,24 +517,36 @@ async function deleteSlide(id) {
 document.getElementById('slide-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
     const id = document.getElementById('slide-id').value;
-
-    formData.append('title', document.getElementById('slide-title').value);
-    formData.append('subtitle', document.getElementById('slide-subtitle').value);
-    formData.append('order', document.getElementById('slide-order').value);
-
     const imageFile = document.getElementById('slide-image').files[0];
-    if (imageFile) formData.append('image', imageFile);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
     try {
+        if (imageFile && submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Uploading image...';
+        }
+
+        const payload = {
+            title: document.getElementById('slide-title').value,
+            subtitle: document.getElementById('slide-subtitle').value,
+            order: document.getElementById('slide-order').value
+        };
+
+        if (imageFile) {
+            payload.image = await uploadToCloudinary(imageFile);
+        }
+
+        if (submitBtn) submitBtn.textContent = 'Saving...';
+
         const url = id ? `${API_BASE_URL}/hero/${id}` : `${API_BASE_URL}/hero`;
         const method = id ? 'PUT' : 'POST';
 
         const response = await fetch(url, {
             method,
-            headers: getAuthHeaders(),
-            body: formData
+            headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
 
         if (response.ok) {
@@ -484,12 +554,16 @@ document.getElementById('slide-form').addEventListener('submit', async (e) => {
             loadSlides();
             alert(id ? 'Slide updated successfully' : 'Slide added successfully');
         } else {
-            const error = await response.json();
-            alert('Error: ' + (error.message || 'Failed to save slide'));
+            alert('Error: ' + await readErrorMessage(response));
         }
     } catch (error) {
         console.error('Error saving slide:', error);
-        alert('Error saving slide');
+        alert('Error saving slide: ' + error.message);
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     }
 });
 

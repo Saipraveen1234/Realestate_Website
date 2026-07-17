@@ -49,14 +49,19 @@ router.post('/', auth, (req, res, next) => {
     });
 }, async (req, res) => {
     try {
-        if (!req.file) {
+        // Image can arrive either as an uploaded file (multer/Cloudinary storage)
+        // or as a pre-uploaded Cloudinary URL (client uploaded directly to Cloudinary
+        // to avoid the platform's request body size limit on serverless functions).
+        const imageUrl = req.file ? req.file.path : req.body.image;
+
+        if (!imageUrl) {
             return res.status(400).json({ message: 'Image is required' });
         }
 
         const { title, subtitle, order } = req.body;
 
         const slide = new HeroSlide({
-            image: req.file.path, // Cloudinary URL
+            image: imageUrl,
             title: title || '',
             subtitle: subtitle || '',
             order: order || 0
@@ -96,7 +101,9 @@ router.put('/:id', auth, (req, res, next) => {
         slide.order = order !== undefined ? order : slide.order;
 
         if (req.file) {
-            slide.image = req.file.path; // Cloudinary URL
+            slide.image = req.file.path; // Cloudinary URL (multer upload)
+        } else if (req.body.image) {
+            slide.image = req.body.image; // Pre-uploaded Cloudinary URL
         }
 
         await slide.save();

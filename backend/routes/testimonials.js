@@ -64,9 +64,11 @@ router.post('/', auth, upload.single('photo'), async (req, res) => {
             testimonial
         };
 
-        // Add photo path if uploaded
+        // Photo from an uploaded file or a pre-uploaded Cloudinary URL
         if (req.file) {
-            testimonialData.photo = req.file.path; // Cloudinary URL
+            testimonialData.photo = req.file.path;
+        } else if (req.body.photo) {
+            testimonialData.photo = req.body.photo;
         }
 
         const newTestimonial = new Testimonial(testimonialData);
@@ -96,9 +98,11 @@ router.put('/:id', auth, upload.single('photo'), async (req, res) => {
         testimonialDoc.rating = rating ? parseInt(rating) : testimonialDoc.rating;
         testimonialDoc.testimonial = testimonial || testimonialDoc.testimonial;
 
-        // Update photo if new file uploaded
+        // Update photo — from an uploaded file or a pre-uploaded Cloudinary URL
         if (req.file) {
-            testimonialDoc.photo = req.file.path; // Cloudinary URL
+            testimonialDoc.photo = req.file.path;
+        } else if (req.body.photo) {
+            testimonialDoc.photo = req.body.photo;
         }
 
         await testimonialDoc.save();

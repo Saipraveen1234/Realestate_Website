@@ -91,17 +91,23 @@ router.post('/', auth, (req, res, next) => {
             description: description || ''
         };
 
-        // Add file paths if uploaded
-        if (req.files) {
-            if (req.files.image) {
-                projectData.image = req.files.image[0].path; // Cloudinary URL
-            }
-            if (req.files.brochure) {
-                projectData.brochure = req.files.brochure[0].path; // Cloudinary URL
-            }
-            if (req.files.layoutImage) {
-                projectData.layoutImage = req.files.layoutImage[0].path; // Cloudinary URL
-            }
+        // Files can arrive either as uploads (multer/Cloudinary storage) or as
+        // pre-uploaded Cloudinary URLs (client uploaded directly to Cloudinary to
+        // avoid the platform's request body size limit on serverless functions).
+        if (req.files && req.files.image) {
+            projectData.image = req.files.image[0].path;
+        } else if (req.body.image) {
+            projectData.image = req.body.image;
+        }
+        if (req.files && req.files.brochure) {
+            projectData.brochure = req.files.brochure[0].path;
+        } else if (req.body.brochure) {
+            projectData.brochure = req.body.brochure;
+        }
+        if (req.files && req.files.layoutImage) {
+            projectData.layoutImage = req.files.layoutImage[0].path;
+        } else if (req.body.layoutImage) {
+            projectData.layoutImage = req.body.layoutImage;
         }
 
         const project = new Project(projectData);
@@ -142,17 +148,21 @@ router.put('/:id', auth, upload.fields([
         project.status = status || project.status;
         project.description = description || project.description;
 
-        // Update file paths if new files uploaded
-        if (req.files) {
-            if (req.files.image) {
-                project.image = req.files.image[0].path; // Cloudinary URL
-            }
-            if (req.files.brochure) {
-                project.brochure = req.files.brochure[0].path; // Cloudinary URL
-            }
-            if (req.files.layoutImage) {
-                project.layoutImage = req.files.layoutImage[0].path; // Cloudinary URL
-            }
+        // Update file paths — from an uploaded file or a pre-uploaded Cloudinary URL
+        if (req.files && req.files.image) {
+            project.image = req.files.image[0].path;
+        } else if (req.body.image) {
+            project.image = req.body.image;
+        }
+        if (req.files && req.files.brochure) {
+            project.brochure = req.files.brochure[0].path;
+        } else if (req.body.brochure) {
+            project.brochure = req.body.brochure;
+        }
+        if (req.files && req.files.layoutImage) {
+            project.layoutImage = req.files.layoutImage[0].path;
+        } else if (req.body.layoutImage) {
+            project.layoutImage = req.body.layoutImage;
         }
 
         await project.save();
