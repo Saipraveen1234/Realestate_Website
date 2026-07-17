@@ -215,5 +215,46 @@ backToTopBtn.addEventListener('click', () => {
     });
 });
 
+// Contact form — submits to Web3Forms (soudhaprojects@gmail.com receives the inquiry)
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    const submitBtn = document.getElementById('contact-submit-btn');
+    const statusEl = document.getElementById('contact-form-status');
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        statusEl.classList.add('hidden');
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                statusEl.textContent = "Thank you — we've received your inquiry and will get back to you soon.";
+                statusEl.className = 'text-sm text-center text-green-600';
+                contactForm.reset();
+            } else {
+                throw new Error(result.message || 'Submission failed');
+            }
+        } catch (error) {
+            console.error('Contact form error:', error);
+            statusEl.textContent = 'Something went wrong. Please call or WhatsApp us directly.';
+            statusEl.className = 'text-sm text-center text-red-500';
+        } finally {
+            statusEl.classList.remove('hidden');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
+    });
+}
+
 // Log page load
 console.log('Real Estate Website Loaded Successfully!');

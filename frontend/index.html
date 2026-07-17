@@ -445,8 +445,8 @@
                             </div>
                             <div>
                                 <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Email</p>
-                                <a href="mailto:Contact@soudhaprojects.com"
-                                    class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">Contact@soudhaprojects.com</a>
+                                <a href="mailto:soudhaprojects@gmail.com"
+                                    class="text-lg font-medium text-dark-charcoal hover:text-primary-orange transition-colors">soudhaprojects@gmail.com</a>
                             </div>
                         </div>
                     </div>
@@ -454,22 +454,25 @@
 
                 <!-- Right: Form -->
                 <div class="bg-white p-6 sm:p-8 md:p-12 border border-gray-100" data-aos="fade-left">
-                    <form class="space-y-8">
+                    <form id="contact-form" class="space-y-8">
+                        <input type="hidden" name="access_key" value="fdb2e9c7-cd81-4937-a463-2a63ad102213">
+                        <input type="hidden" name="subject" value="New Inquiry — Soudha Projects Website">
+                        <input type="hidden" name="from_name" value="Soudha Projects Website">
                         <div class="space-y-2">
                             <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Full
                                 Name</label>
-                            <input type="text" placeholder="Your full name" class="contact-input">
+                            <input type="text" name="name" required placeholder="Your full name" class="contact-input">
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Phone
                                 Number</label>
-                            <input type="tel" placeholder="+91 93715 61234" class="contact-input">
+                            <input type="tel" name="phone" required placeholder="+91 93715 61234" class="contact-input">
                         </div>
                         <div class="space-y-2">
                             <label
                                 class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Inquiry
                                 Type</label>
-                            <select class="contact-input">
+                            <select name="inquiry_type" class="contact-input">
                                 <option>Open Plots</option>
                                 <option>Villas</option>
                                 <option>Farm Lands</option>
@@ -479,13 +482,14 @@
                         <div class="space-y-2">
                             <label
                                 class="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium block">Message</label>
-                            <textarea rows="3" placeholder="Tell us about your requirements..."
+                            <textarea rows="3" name="message" placeholder="Tell us about your requirements..."
                                 class="contact-input resize-none"></textarea>
                         </div>
-                        <button type="submit"
-                            class="w-full bg-dark-charcoal text-white py-4 text-xs uppercase tracking-[0.25em] font-medium hover:bg-primary-orange transition-colors duration-300">
+                        <button type="submit" id="contact-submit-btn"
+                            class="w-full bg-dark-charcoal text-white py-4 text-xs uppercase tracking-[0.25em] font-medium hover:bg-primary-orange transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed">
                             Submit Request
                         </button>
+                        <p id="contact-form-status" class="text-sm text-center hidden"></p>
                     </form>
                 </div>
             </div>
@@ -545,8 +549,8 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-envelope text-primary-orange flex-shrink-0"></i>
-                            <a href="mailto:Contact@soudhaprojects.com"
-                                class="hover:text-primary-orange transition break-all">Contact@soudhaprojects.com</a>
+                            <a href="mailto:soudhaprojects@gmail.com"
+                                class="hover:text-primary-orange transition break-all">soudhaprojects@gmail.com</a>
                         </li>
                     </ul>
                     <div class="flex space-x-3 mt-6">
