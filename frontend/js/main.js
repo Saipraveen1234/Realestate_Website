@@ -241,6 +241,9 @@ if (contactForm) {
                 statusEl.textContent = "Thank you — we've received your inquiry and will get back to you soon.";
                 statusEl.className = 'text-sm text-center text-green-600';
                 contactForm.reset();
+                if (typeof gtag === 'function') {
+                    gtag('event', 'conversion', { send_to: 'AW-18348307015/vLExCNOIuf8cEMfkk61E' });
+                }
             } else {
                 throw new Error(result.message || 'Submission failed');
             }
