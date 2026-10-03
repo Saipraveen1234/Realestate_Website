@@ -70,10 +70,12 @@
                 <a href="index.html#testimonials" class="nav-desktop-link !text-dark-charcoal">Testimonials</a>
                 <a href="index.html#contact" class="nav-desktop-link !text-dark-charcoal">Contact</a>
             </div>
-            <a href="tel:+919371561234"
-                class="navbar-inquire-btn text-white text-xs font-medium uppercase tracking-[0.2em] px-7 py-3 transition-colors duration-300">
-                Inquire
-            </a>
+            <div class="flex items-center gap-3">
+                <a href="tel:+919371561234" aria-label="Call Us" title="Call Us"
+                    class="navbar-phone-btn flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-dark-charcoal hover:border-primary-orange hover:bg-primary-orange hover:text-white transition-all duration-300">
+                    <i class="fas fa-phone-alt text-sm"></i>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -248,12 +250,21 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919371561234" target="_blank"
-        class="whatsapp-float fixed bottom-5 right-5 md:bottom-8 md:right-8 bg-whatsapp-green rounded-full flex items-center justify-center text-white text-2xl md:text-3xl shadow-2xl hover:scale-110 transition z-50"
-        style="width:52px;height:52px;">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Floating Actions: Phone Call Icon beside WhatsApp Icon -->
+    <div class="floating-actions-container fixed bottom-5 right-5 md:bottom-8 md:right-8 z-50 flex items-center gap-2.5 md:gap-3">
+        <!-- Phone Call Icon Button (redirects to call) -->
+        <a href="tel:+919371561234" aria-label="Call Us" title="Call Us"
+            class="call-float flex items-center justify-center text-white bg-primary-orange rounded-full shadow-2xl hover:scale-110 transition-all duration-300">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+
+        <!-- WhatsApp Icon Button (in the exact same place) -->
+        <a href="https://wa.me/919371561234" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"
+            class="whatsapp-float flex items-center justify-center text-white text-2xl md:text-3xl bg-whatsapp-green rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
+            style="width:50px;height:50px;">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

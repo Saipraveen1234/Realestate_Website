@@ -105,12 +105,14 @@
                 <a href="#contact" class="nav-desktop-link">Contact</a>
             </div>
 
-            <!-- Right: Inquire CTA + Mobile Hamburger -->
+            <!-- Right: Phone Call CTA + Mobile Hamburger -->
             <div class="flex items-center gap-3">
-                <a href="tel:+919371561234"
-                    class="hidden md:block navbar-inquire-btn text-white text-xs font-medium uppercase tracking-[0.2em] px-7 py-3 transition-colors duration-300">
-                    Inquire
+                <!-- Top Call Option with Phone Symbol (redirects to call) -->
+                <a href="tel:+919371561234" aria-label="Call Us" title="Call Us"
+                    class="navbar-phone-btn transition-all duration-300">
+                    <i class="fas fa-phone-alt"></i>
                 </a>
+
                 <button id="menu-btn"
                     class="md:hidden flex-shrink-0 text-white bg-white/15 backdrop-blur-sm border border-white/30 p-2.5 w-10 h-10 flex items-center justify-center hover:bg-primary-orange hover:border-primary-orange transition-all duration-300 focus:outline-none z-50">
                     <i class="fas fa-bars text-base"></i>
@@ -147,7 +149,7 @@
                 <div class="mt-auto pt-8 border-t border-gray-100">
                     <a href="tel:+919371561234"
                         class="block w-full text-center bg-dark-charcoal text-white py-4 text-sm uppercase tracking-widest font-medium hover:bg-primary-orange transition-colors duration-300 mb-6">
-                        <i class="fas fa-phone mr-2"></i>Call Now
+                        <i class="fas fa-phone-alt mr-2 text-primary-orange"></i>+91 93715 61234
                     </a>
                     <div class="flex justify-center space-x-5">
                         <a href="#" class="menu-social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -579,12 +581,20 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919371561234" target="_blank"
-        class="whatsapp-float fixed bottom-5 right-5 md:bottom-8 md:right-8 w-13 h-13 md:w-14 md:h-14 bg-whatsapp-green rounded-full flex items-center justify-center text-white text-2xl md:text-3xl shadow-2xl hover:scale-110 transition z-50"
-        style="width:52px;height:52px;">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Floating Actions: Phone Call Icon beside WhatsApp Icon -->
+    <div class="floating-actions-container fixed bottom-5 right-5 md:bottom-8 md:right-8 z-50 flex items-center gap-2.5 md:gap-3">
+        <!-- Phone Call Icon Button (redirects to call) -->
+        <a href="tel:+919371561234" aria-label="Call Us" title="Call Us"
+            class="call-float flex items-center justify-center text-white bg-primary-orange rounded-full shadow-2xl hover:scale-110 transition-all duration-300">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+
+        <!-- WhatsApp Icon Button (in the exact same place) -->
+        <a href="https://wa.me/919371561234" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"
+            class="whatsapp-float flex items-center justify-center text-white bg-whatsapp-green rounded-full shadow-2xl hover:scale-110 transition-all duration-300">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <!-- Back to Top Button -->
     <button id="back-to-top"
